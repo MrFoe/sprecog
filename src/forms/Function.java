@@ -524,21 +524,21 @@ public class Function extends javax.swing.JFrame {
 
         jPanel10.setBorder(javax.swing.BorderFactory.createTitledBorder("Настрой нейронной сети"));
 
-        jLabel3.setText("jLabel3");
+        jLabel3.setText("Количество эпох обучения");
 
-        jLabel4.setText("jLabel4");
+        jLabel4.setText("Моментум");
 
-        jLabel9.setText("jLabel9");
+        jLabel9.setText("Скорость обучения");
 
         jLabel12.setText("jLabel12");
 
         jButton4.setText("jButton4");
 
-        jTextField8.setText("jTextField8");
+        jTextField8.setText("1300");
 
-        jTextField12.setText("jTextField12");
+        jTextField12.setText("0.01");
 
-        jTextField13.setText("jTextField13");
+        jTextField13.setText("0.6");
 
         jTextField14.setText("jTextField14");
 

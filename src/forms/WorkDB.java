@@ -15,6 +15,7 @@ import static forms.Function.workdb;
 import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Random;
 import java.util.Set;
@@ -185,7 +186,7 @@ public class WorkDB extends javax.swing.JFrame {
                     float longSignal = (float) wf.getDurationTime();
                     float crossing  = Float.parseFloat(function.jTextField5.getText());
                     float freamLngth  = Float.parseFloat(function.jTextField6.getText());
-                    Resamples rs = new Resamples(FdataFromImport, crossing, longSignal*100, freamLngth); 
+                    Resamples rs = new Resamples(FdataFromImport, crossing, longSignal*100, freamLngth, false); 
                     float[][] resData = rs.count();
          
                     float sampleRate = 22050.0f; // для конкретной моей задачи
@@ -365,6 +366,7 @@ public class WorkDB extends javax.swing.JFrame {
         //float outValue;//value = (int) (1 + Math.random()*learnData.sempls.length);
         
         //int[] g = generated.;
+        ArrayList summError = new ArrayList();
         
         for (int i = 0; i<1500; i++){
             float summ = 0;
@@ -408,6 +410,7 @@ public class WorkDB extends javax.swing.JFrame {
                 }}*/
                 summ += error;
             }
+            summError.add(summ);
             System.out.println("Номер эпохи "+i+"\tОшибка "+summ/(learnData.sempls.length-1));
         }
         //Сохранение нейронной сети
@@ -415,6 +418,8 @@ public class WorkDB extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+
+        /*
         BackpropNetwork bpw;
         WaveFile wf;
         File file = new File("//home//semen//Documents//MPEI//UNIR//Выборки//Ярушко_преобразованная//d_3.wav"); 
@@ -434,7 +439,7 @@ public class WorkDB extends javax.swing.JFrame {
         for (int i = 0; i < yData.length; i++)
             xData[i] = i;
         XYChart chart = QuickChart.getChart("Sample Chart", "X", "Y", "y(x)", xData, yData);
-        new SwingWrapper(chart).displayChart();
+        new SwingWrapper(chart).displayChart();*/
     }//GEN-LAST:event_jButton6ActionPerformed
 
     /**

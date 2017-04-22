@@ -555,7 +555,7 @@ public class EditCmd extends javax.swing.JFrame {
         float ls = (float)longSignal;
         float crossing  = Float.parseFloat(function.jTextField5.getText());
         float freamLngth  = Float.parseFloat(function.jTextField6.getText());
-        Resamples rs = new Resamples(FdataFromImport, crossing, ls*100, freamLngth); 
+        Resamples rs = new Resamples(FdataFromImport, crossing, ls*100, freamLngth, false); 
         float[][] resData = rs.count();
         
         //Чтение с формы обрабоки сигнала
