@@ -15,6 +15,7 @@ import static forms.Function.workdb;
 import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Random;
 import java.util.Set;
@@ -173,7 +174,7 @@ public class WorkDB extends javax.swing.JFrame {
                     float longSignal = (float) wf.getDurationTime();
                     float crossing  = Float.parseFloat(function.jTextField5.getText());
                     float freamLngth  = Float.parseFloat(function.jTextField6.getText());
-                    Resamples rs = new Resamples(FdataFromImport, crossing, longSignal*100, freamLngth); 
+                    Resamples rs = new Resamples(FdataFromImport, crossing, longSignal*100, freamLngth, false); 
                     float[][] resData = rs.count();
          
                     float sampleRate = 22050.0f; // для конкретной моей задачи
@@ -351,8 +352,13 @@ public class WorkDB extends javax.swing.JFrame {
         //float outValue;//value = (int) (1 + Math.random()*learnData.sempls.length);
         
         //int[] g = generated.;
+<<<<<<< HEAD
         yData = new double[1500];
         xData = new double[1500];
+=======
+        ArrayList summError = new ArrayList();
+        
+>>>>>>> 58c3771d6c8691deb42df0f1d4301c3e89542cbd
         for (int i = 0; i<1500; i++){
             xData[i] = i;
             float summ = 0;
@@ -400,7 +406,11 @@ public class WorkDB extends javax.swing.JFrame {
                 }}*/
                 summ += error;
             }
+<<<<<<< HEAD
             yData[i] = summ/(learnData.sempls.length-1);
+=======
+            summError.add(summ);
+>>>>>>> 58c3771d6c8691deb42df0f1d4301c3e89542cbd
             System.out.println("Номер эпохи "+i+"\tОшибка "+summ/(learnData.sempls.length-1));
         }
         XYChart chart = QuickChart.getChart("Sample Chart", "X", "Y", "y(x)", xData, yData);
@@ -412,10 +422,17 @@ public class WorkDB extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+<<<<<<< HEAD
         BackpropNetwork bpw = null;
         bpw.loadFromFile("network");
         
         /*WaveFile wf;
+=======
+
+        /*
+        BackpropNetwork bpw;
+        WaveFile wf;
+>>>>>>> 58c3771d6c8691deb42df0f1d4301c3e89542cbd
         File file = new File("//home//semen//Documents//MPEI//UNIR//Выборки//Ярушко_преобразованная//d_3.wav"); 
         try {
             wf = new WaveFile(file);

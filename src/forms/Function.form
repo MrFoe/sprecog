@@ -833,17 +833,21 @@
                   <SubComponents>
                     <Component class="javax.swing.JLabel" name="jLabel3">
                       <Properties>
+<<<<<<< HEAD
                         <Property name="text" type="java.lang.String" value="&#x41a;&#x43e;&#x43b;&#x438;&#x447;&#x441;&#x442;&#x432;&#x43e; &#x44d;&#x43f;&#x43e;&#x445;"/>
+=======
+                        <Property name="text" type="java.lang.String" value="&#x41a;&#x43e;&#x43b;&#x438;&#x447;&#x435;&#x441;&#x442;&#x432;&#x43e; &#x44d;&#x43f;&#x43e;&#x445; &#x43e;&#x431;&#x443;&#x447;&#x435;&#x43d;&#x438;&#x44f;"/>
+>>>>>>> 58c3771d6c8691deb42df0f1d4301c3e89542cbd
                       </Properties>
                     </Component>
                     <Component class="javax.swing.JLabel" name="jLabel4">
                       <Properties>
-                        <Property name="text" type="java.lang.String" value="jLabel4"/>
+                        <Property name="text" type="java.lang.String" value="&#x41c;&#x43e;&#x43c;&#x435;&#x43d;&#x442;&#x443;&#x43c;"/>
                       </Properties>
                     </Component>
                     <Component class="javax.swing.JLabel" name="jLabel9">
                       <Properties>
-                        <Property name="text" type="java.lang.String" value="jLabel9"/>
+                        <Property name="text" type="java.lang.String" value="&#x421;&#x43a;&#x43e;&#x440;&#x43e;&#x441;&#x442;&#x44c; &#x43e;&#x431;&#x443;&#x447;&#x435;&#x43d;&#x438;&#x44f;"/>
                       </Properties>
                     </Component>
                     <Component class="javax.swing.JLabel" name="jLabel12">
@@ -857,10 +861,26 @@
                       </Properties>
                     </Component>
                     <Component class="javax.swing.JTextField" name="jTextField8">
+<<<<<<< HEAD
                     </Component>
                     <Component class="javax.swing.JTextField" name="jTextField12">
                     </Component>
                     <Component class="javax.swing.JTextField" name="jTextField13">
+=======
+                      <Properties>
+                        <Property name="text" type="java.lang.String" value="1300"/>
+                      </Properties>
+                    </Component>
+                    <Component class="javax.swing.JTextField" name="jTextField12">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" value="0.01"/>
+                      </Properties>
+                    </Component>
+                    <Component class="javax.swing.JTextField" name="jTextField13">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" value="0.6"/>
+                      </Properties>
+>>>>>>> 58c3771d6c8691deb42df0f1d4301c3e89542cbd
                     </Component>
                     <Component class="javax.swing.JTextField" name="jTextField14">
                       <Properties>
