@@ -444,11 +444,9 @@ public class Function extends javax.swing.JFrame {
 
         jPanel10.setBorder(javax.swing.BorderFactory.createTitledBorder("Настрой нейронной сети"));
 
-<<<<<<< HEAD
         jLabel3.setText("Количство эпох");
-=======
         jLabel3.setText("Количество эпох обучения");
->>>>>>> 58c3771d6c8691deb42df0f1d4301c3e89542cbd
+
 
         jLabel4.setText("Моментум");
 
@@ -458,15 +456,13 @@ public class Function extends javax.swing.JFrame {
 
         jButton4.setText("jButton4");
 
-<<<<<<< HEAD
-=======
+
         jTextField8.setText("1300");
 
         jTextField12.setText("0.01");
 
         jTextField13.setText("0.6");
 
->>>>>>> 58c3771d6c8691deb42df0f1d4301c3e89542cbd
         jTextField14.setText("jTextField14");
 
         javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
