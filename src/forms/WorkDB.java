@@ -352,13 +352,8 @@ public class WorkDB extends javax.swing.JFrame {
         //float outValue;//value = (int) (1 + Math.random()*learnData.sempls.length);
         
         //int[] g = generated.;
-<<<<<<< HEAD
         yData = new double[1500];
         xData = new double[1500];
-=======
-        ArrayList summError = new ArrayList();
-        
->>>>>>> 58c3771d6c8691deb42df0f1d4301c3e89542cbd
         for (int i = 0; i<1500; i++){
             xData[i] = i;
             float summ = 0;
@@ -406,11 +401,7 @@ public class WorkDB extends javax.swing.JFrame {
                 }}*/
                 summ += error;
             }
-<<<<<<< HEAD
             yData[i] = summ/(learnData.sempls.length-1);
-=======
-            summError.add(summ);
->>>>>>> 58c3771d6c8691deb42df0f1d4301c3e89542cbd
             System.out.println("Номер эпохи "+i+"\tОшибка "+summ/(learnData.sempls.length-1));
         }
         XYChart chart = QuickChart.getChart("Sample Chart", "X", "Y", "y(x)", xData, yData);
@@ -422,7 +413,6 @@ public class WorkDB extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-<<<<<<< HEAD
         BackpropNetwork bpw = null;
         bpw.loadFromFile("network");
         
