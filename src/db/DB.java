@@ -218,16 +218,17 @@ public class DB {
                 }
             }  
             return commands;       
-	}
-	public static int minLengthMfcc()throws SQLException, ClassNotFoundException{
-            int minValue;
-            String sqlStr = "select count(m.id), m.id_prop from mfcc m\n" +
-                    "join property_commands pc on m.id_prop = pc.id\n" +
-                    "group by m.id_prop order by 1";
-            resSet = statmt.executeQuery(sqlStr);
-            minValue = resSet.getInt("count(m.id)");
-            return minValue;
-        }
+    }
+    
+    public static int minLengthMfcc()throws SQLException, ClassNotFoundException{
+        int minValue;
+        String sqlStr = "select count(m.id), m.id_prop from mfcc m\n" +
+                "join property_commands pc on m.id_prop = pc.id\n" +
+               "group by m.id_prop order by 1";
+        resSet = statmt.executeQuery(sqlStr);
+        minValue = resSet.getInt("count(m.id)");
+        return minValue;
+    }
         
     public static int countCommands()throws SQLException, ClassNotFoundException{
         int cComm;
@@ -238,19 +239,19 @@ public class DB {
         return cComm;
     }
 	//Закрытие Базы данны
-	public static void closeDB() throws ClassNotFoundException,SQLException
-	{
-            conn.close();
-            if (statmt != null){
-                statmt.close();  
-            }
-            if (statmt != null){
-                stat.close(); 
-            }
-            if (resSet != null)
-		resSet.close();
-            if (resSt != null)
-		resSt.close();
+    public static void closeDB() throws ClassNotFoundException,SQLException
+    {
+        conn.close();
+        if (statmt != null){
+            statmt.close();  
+        }
+        if (statmt != null){
+            stat.close(); 
+        }
+        if (resSet != null)
+            resSet.close();
+        if (resSt != null)
+            resSt.close();
 	}
 }
 

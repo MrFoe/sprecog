@@ -23,6 +23,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import nn.BackpropNetwork;
+import nn.Network;
 import nn.SigmoidLayer;
 import org.knowm.xchart.QuickChart;
 import org.knowm.xchart.SwingWrapper;
@@ -55,8 +56,6 @@ public class WorkDB extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
-        jTextField1 = new javax.swing.JTextField();
-        jLabel1 = new javax.swing.JLabel();
         jButton5 = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
 
@@ -90,8 +89,6 @@ public class WorkDB extends javax.swing.JFrame {
             }
         });
 
-        jLabel1.setText("Подсказка для юзера");
-
         jButton5.setText("Обучение нейронной сети");
         jButton5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -117,28 +114,23 @@ public class WorkDB extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 731, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(jButton1)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButton2)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jButton1)
+                        .addGap(51, 51, 51)
+                        .addComponent(jButton2))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(20, 20, 20)
+                        .addComponent(jButton4))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jButton5)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButton6))
-                    .addComponent(jButton4))
-                .addContainerGap(36, Short.MAX_VALUE))
+                        .addGap(41, 41, 41)
+                        .addComponent(jButton6)))
+                .addContainerGap(405, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
                     .addComponent(jButton2))
@@ -148,7 +140,7 @@ public class WorkDB extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton5)
                     .addComponent(jButton6))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 200, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 297, Short.MAX_VALUE)
                 .addComponent(jButton3)
                 .addContainerGap())
         );
@@ -165,14 +157,10 @@ public class WorkDB extends javax.swing.JFrame {
         if (ret == fileCh.APPROVE_OPTION) {
             importFiles = fileCh.getSelectedFiles();
             try {
-                jTextField1.setText("Идет октрытие базы данных .....");
                 long startTime = System.currentTimeMillis();
                 db.openDB();
-                jTextField1.setText("Идет удаление старых данных из базы .....");
                 db.deleteAllCommands();
-                jTextField1.setText("Идет запись новых данных в базу.....");
                 for (int l = 0; l < importFiles.length; l++){
-                    jTextField1.setText("Идет открытие файла.....");
                     wf =  new WaveFile(importFiles[l]);
                     //System.out.println(wf.getAudioFormat());
                     short[] dataFromImport = wf.getData();
@@ -195,7 +183,6 @@ public class WorkDB extends javax.swing.JFrame {
                     float upperFilterFreq = Float.parseFloat(function.jTextField11.getText());
                 
                     //Расчет MFCC коэфициетов для записи
-                    jTextField1.setText("Идет расчет коэффициентов файла.....");
                     MFCC mfcc;
                     float[] ot = new float [resData[0].length];
                     float[] fullOt =  new float[amountOfCepstrumCoef*resData.length]; //Конечный вектор MFCC коэфициентов фреймов
@@ -222,13 +209,12 @@ public class WorkDB extends javax.swing.JFrame {
                     
                     // Загурзка данных в БД
                     //1 - номер диктора
-                    jTextField1.setText("Идет запись коэффициентов файла в базу.....");
                     db.addRecord(name, nameCommand, fullOt, 1);
                     //System.out.println(name+"    "+nameCommand);
                 }
                 db.closeDB();
                 long spentTime = System.currentTimeMillis() - startTime;
-                jTextField1.setText("Загрузка завершена \nВремя записи выборки в БД  "+spentTime);
+                System.out.println("Загрузка завершена \nВремя записи выборки в БД  "+spentTime);
                 } catch (UnsupportedAudioFileException | IOException | ClassNotFoundException |SQLException ex) {
                     Logger.getLogger(WorkDB.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -327,12 +313,12 @@ public class WorkDB extends javax.swing.JFrame {
         //ExecuteData testData = new ExecuteData();
         ExecuteData learnData = new ExecuteData();
         //ExecuteData verfData = new ExecuteData();
-        int minCoef = 0, countComm = 0;
+        int maxCoef = 0, countComm = 0;
         
         long startTime = System.currentTimeMillis();
         try{
             db.openDB();
-            minCoef = db.minLengthMfcc();
+            maxCoef = db.maxLengthMfcc();
             countComm = db.countCommands();
             learnData = db.executeRecord(1);
             //System.out.println(db.maxLengthMfcc());
@@ -347,9 +333,9 @@ public class WorkDB extends javax.swing.JFrame {
         // Задание слоев нейронной сети
         SigmoidLayer[] sl = new SigmoidLayer[3];
         //int minC = getMin();
-        sl[0] = new SigmoidLayer(minCoef, minCoef, false);
-        sl[1] = new SigmoidLayer(minCoef, minCoef/2, false);
-	sl[2] = new SigmoidLayer(minCoef/2, countComm, false);
+        sl[0] = new SigmoidLayer(maxCoef, maxCoef, false);
+        sl[1] = new SigmoidLayer(maxCoef, maxCoef/2, false);
+	sl[2] = new SigmoidLayer(maxCoef/2, countComm, false);
         
         //Создание нейронной сети
         BackpropNetwork  bpw = new BackpropNetwork(sl);
@@ -365,8 +351,10 @@ public class WorkDB extends javax.swing.JFrame {
         //float outValue;//value = (int) (1 + Math.random()*learnData.sempls.length);
         
         //int[] g = generated.;
-        
+        yData = new double[1500];
+        xData = new double[1500];
         for (int i = 0; i<1500; i++){
+            xData[i] = i;
             float summ = 0;
             int[] myArray = new int[learnData.sempls.length];
             int p = 0;
@@ -384,14 +372,18 @@ public class WorkDB extends javax.swing.JFrame {
                        myArray[p] = value;        
                        p++; 
                     }  
-                }
+            }
             //System.out.println("Дааааааааааааааааааа");
             for (int k = 0; k < learnData.sempls.length; k++){
-                float[] input = new float[minCoef];
+                float[] input = new float[maxCoef];
                 
-                for (int l = 0; l < minCoef; l++){
+                for (int l = 0; l < maxCoef; l++){
                     int ind = myArray[k];
-                    input[l] = learnData.sempls[ind][l];
+                    if (l < learnData.sempls[ind].length){
+                        input[l] = learnData.sempls[ind][l];
+                    }else {
+                        input[l] = 0;
+                    }
                 }
 
                 float[] goal = new float[4];
@@ -408,15 +400,22 @@ public class WorkDB extends javax.swing.JFrame {
                 }}*/
                 summ += error;
             }
+            yData[i] = summ/(learnData.sempls.length-1);
             System.out.println("Номер эпохи "+i+"\tОшибка "+summ/(learnData.sempls.length-1));
         }
+        XYChart chart = QuickChart.getChart("Sample Chart", "X", "Y", "y(x)", xData, yData);
+        new SwingWrapper(chart).displayChart();
         //Сохранение нейронной сети
         bpw.saveToFile("network");
+        //Network n = null;
+        //n.loadFromFile("network");
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-        BackpropNetwork bpw;
-        WaveFile wf;
+        BackpropNetwork bpw = null;
+        bpw.loadFromFile("network");
+        
+        /*WaveFile wf;
         File file = new File("//home//semen//Documents//MPEI//UNIR//Выборки//Ярушко_преобразованная//d_3.wav"); 
         try {
             wf = new WaveFile(file);
@@ -434,7 +433,7 @@ public class WorkDB extends javax.swing.JFrame {
         for (int i = 0; i < yData.length; i++)
             xData[i] = i;
         XYChart chart = QuickChart.getChart("Sample Chart", "X", "Y", "y(x)", xData, yData);
-        new SwingWrapper(chart).displayChart();
+        new SwingWrapper(chart).displayChart();*/
     }//GEN-LAST:event_jButton6ActionPerformed
 
     /**
@@ -450,7 +449,5 @@ public class WorkDB extends javax.swing.JFrame {
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
 }

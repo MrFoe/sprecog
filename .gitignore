@@ -1,11 +1,6 @@
-manifest.mf
-
 *.s3db
 
 dist/
-nbproject
 
 *.class
 /build/
-text files/
-build.xml
