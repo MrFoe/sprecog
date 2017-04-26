@@ -9,6 +9,7 @@ package forms;
 import code.dtw.DTW;
 import core.util.ExecuteData;
 import db.DB;
+import java.io.File;
 import javax.swing.JFrame;
 import org.knowm.xchart.QuickChart;
 import org.knowm.xchart.SwingWrapper;
@@ -17,6 +18,8 @@ import java.sql.SQLException;
 import java.util.Stack;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import javax.swing.WindowConstants;
 import nn.BackpropNetwork;
 import nn.SigmoidLayer;
 /**
@@ -58,6 +61,7 @@ public class Function extends javax.swing.JFrame {
         jButton3 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
+        jButton5 = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
@@ -102,6 +106,8 @@ public class Function extends javax.swing.JFrame {
         jTextField8 = new javax.swing.JTextField();
         jTextField12 = new javax.swing.JTextField();
         jTextField13 = new javax.swing.JTextField();
+        jLabel12 = new javax.swing.JLabel();
+        jTextField14 = new javax.swing.JTextField();
         jButton4 = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
 
@@ -117,6 +123,7 @@ public class Function extends javax.swing.JFrame {
 
         jScrollPane2.setHorizontalScrollBar(null);
 
+        jList1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jList1.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = commands;
             public int getSize() { return strings.length; }
@@ -132,13 +139,14 @@ public class Function extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                .addContainerGap())
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(20, Short.MAX_VALUE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(20, 20, 20)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -173,6 +181,13 @@ public class Function extends javax.swing.JFrame {
         jTextArea1.setRows(5);
         jScrollPane1.setViewportView(jTextArea1);
 
+        jButton5.setText("Очистка");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
@@ -183,19 +198,22 @@ public class Function extends javax.swing.JFrame {
                     .addComponent(jScrollPane1)
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addComponent(jButton2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 395, Short.MAX_VALUE)
-                        .addComponent(jButton3)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 157, Short.MAX_VALUE)
+                        .addComponent(jButton3)
+                        .addGap(122, 122, 122)
+                        .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(21, 21, 21))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 374, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 264, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 628, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton3)
-                    .addComponent(jButton2))
+                    .addComponent(jButton2)
+                    .addComponent(jButton5))
                 .addContainerGap())
         );
 
@@ -210,7 +228,7 @@ public class Function extends javax.swing.JFrame {
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+            .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
@@ -387,7 +405,7 @@ public class Function extends javax.swing.JFrame {
                         .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel24)
                             .addComponent(jLabel25))))
-                .addContainerGap(17, Short.MAX_VALUE))
+                .addContainerGap(40, Short.MAX_VALUE))
         );
         jPanel8Layout.setVerticalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -499,6 +517,17 @@ public class Function extends javax.swing.JFrame {
 
         jTextField13.setText("0.01");
 
+        jLabel12.setText("Имя сохраняемого файла НС");
+
+        jTextField14.setText("network");
+
+        jButton4.setText("Настрока нейронной сети");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
         jPanel9.setLayout(jPanel9Layout);
         jPanel9Layout.setHorizontalGroup(
@@ -506,17 +535,22 @@ public class Function extends javax.swing.JFrame {
             .addGroup(jPanel9Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 272, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jTextField13, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTextField7, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTextField12, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTextField8))
-                .addGap(30, 30, 30))
+                    .addGroup(jPanel9Layout.createSequentialGroup()
+                        .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 272, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel12))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(jTextField13, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jTextField12, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jTextField7, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 53, Short.MAX_VALUE)
+                            .addComponent(jTextField8)
+                            .addComponent(jTextField14)))
+                    .addComponent(jButton4))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel9Layout.setVerticalGroup(
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -537,15 +571,14 @@ public class Function extends javax.swing.JFrame {
                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel9)
                     .addComponent(jTextField8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel12)
+                    .addComponent(jTextField14, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(jButton4)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-
-        jButton4.setText("Настрока нейронной сети");
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -558,12 +591,8 @@ public class Function extends javax.swing.JFrame {
                     .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
-            .addGroup(jPanel5Layout.createSequentialGroup()
-                .addGap(34, 34, 34)
-                .addComponent(jButton4)
+                    .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel5Layout.setVerticalGroup(
@@ -576,12 +605,10 @@ public class Function extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(18, 18, 18)
-                .addComponent(jButton4)
-                .addContainerGap(258, Short.MAX_VALUE))
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(293, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Настройка", jPanel5);
@@ -603,32 +630,29 @@ public class Function extends javax.swing.JFrame {
         jPanel6Layout.setHorizontalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(74, 918, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
-            .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel6Layout.createSequentialGroup()
-                    .addGap(287, 287, 287)
-                    .addComponent(jTabbedPane1)
-                    .addContainerGap()))
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(36, 36, 36)
+                .addComponent(jTabbedPane1)
+                .addGap(46, 46, 46))
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel6Layout.createSequentialGroup()
-                .addGap(34, 34, 34)
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addGap(34, 34, 34)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
                 .addComponent(jButton1)
                 .addGap(8, 8, 8))
-            .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel6Layout.createSequentialGroup()
-                    .addGap(20, 20, 20)
-                    .addComponent(jTabbedPane1)
-                    .addGap(43, 43, 43)))
         );
 
         jTabbedPane1.getAccessibleContext().setAccessibleName("jTabbedPane1");
@@ -681,7 +705,6 @@ public class Function extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // Распознование с помощью DTW
-        
         Stack st = new Stack();
         DTW dtw = new DTW();
         ExecuteData testData = new ExecuteData();
@@ -703,62 +726,72 @@ public class Function extends javax.swing.JFrame {
             Logger.getLogger(WorkDB.class.getName()).log(Level.SEVERE, null, ex);
         } 
         long spentTime = System.currentTimeMillis() - startTime;
-        System.out.println("Время загрузки команд из БД в память "+spentTime);
-        
+        jTextArea1.setText(jTextArea1.getText()+"Время загрузки команд из БД в память "+spentTime+ "\n");
         //расчет min DTW расстояния
         startTime = System.currentTimeMillis();
         float error = 0;
-        for (int i = 0; i < testData.sempls.length; i++){
-            float min = 100000000;
-            int cmdId = -1;
-            float[] mf1 = new float [testData.sempls[i].length];
-            for (int k=0; k < testData.sempls[i].length; k++){
-                mf1[k] = testData.sempls[i][k];
-            }
-            for (int l = 0; l < learnData.sempls.length; l++){
-                float[] mf2 = new float [learnData.sempls[l].length];
-                //System.out.println(l);
-                for (int k=0; k < learnData.sempls[l].length; k++){
-                    mf2[k] = learnData.sempls[l][k];
+        jTextArea1.setText(jTextArea1.getText()+"Результат распознования с помощью алгоритма DTW \n");
+        try{
+            db.openDB();
+            for (int i = 0; i < testData.sempls.length; i++){
+                float min = 100000000;
+                int cmdId = -1;
+                float[] mf1 = new float [testData.sempls[i].length];
+                for (int k=0; k < testData.sempls[i].length; k++){
+                    mf1[k] = testData.sempls[i][k];
                 }
-                st.clear();
-                float[][] dw = new float [mf1.length][mf2.length];
-                dtw.dtw(mf1, mf2, dw, st);
-                float summ = 0;
-                while(!st.empty()){
-                    summ +=(float) st.pop();
+                for (int l = 0; l < learnData.sempls.length; l++){
+                    float[] mf2 = new float [learnData.sempls[l].length];
+                    //System.out.println(l);
+                    for (int k=0; k < learnData.sempls[l].length; k++){
+                        mf2[k] = learnData.sempls[l][k];
+                    }
+                    st.clear();
+                    float[][] dw = new float [mf1.length][mf2.length];
+                    dtw.dtw(mf1, mf2, dw, st);
+                    float summ = 0;
+                    while(!st.empty()){
+                        summ +=(float) st.pop();
+                    }
+                    //System.out.println(summ);
+                    if (summ < min){
+                        min = summ;
+                        cmdId = learnData.commandsIds[l];
+                    }
                 }
-                //System.out.println(summ);
-                if (summ < min){
-                    min = summ;
-                    cmdId = learnData.commandsIds[l];
+
+                //System.out.println();
+                if (cmdId != testData.commandsIds[i]){
+                    error++;
+                    String nameComm = db.getCommand(testData.commandsIds[i]);
+                    jTextArea1.setText(jTextArea1.getText()+"ID тестовой команды "+testData.commandsIds[i]+" Имя команды "+nameComm);
+                    jTextArea1.setText(jTextArea1.getText()+"     Минимальное расстояние "+min);
+                    nameComm = db.getCommand(cmdId);
+                    jTextArea1.setText(jTextArea1.getText()+"   ID обучающей команды "+cmdId+" Имя команды "+nameComm+"\n");
                 }
+                //jTextArea1.setText(jTextArea1.getText()+"ID тестовой команды "+testData.commandsIds[i]);
+                //jTextArea1.setText(jTextArea1.getText()+"     Минимальное расстояние до схожего ряда "+min);
+                //jTextArea1.setText(jTextArea1.getText()+"   ID обучающей команды "+cmdId+"\n");
             }
-            
-            //System.out.println();
-            if (cmdId != testData.commandsIds[i]){
-                error++;
-                System.out.print("ID тестовой команды "+testData.commandsIds[i]);
-                System.out.print("     Минимальное расстояние до схожего ряда "+min);
-                System.out.println("   ID обучающей команды "+cmdId);
-            }
-        } 
+            db.closeDB();
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(WorkDB.class.getName()).log(Level.SEVERE, null, ex);
+        }
         spentTime = System.currentTimeMillis() - startTime;
-        System.out.println();
-        System.out.println("Время работы DTW и расчета ошибки "+spentTime);
-        System.out.println(error);
+        jTextArea1.setText(jTextArea1.getText()+"\nВремя работы DTW и расчета ошибки "+spentTime+"\n");
         error = error/testData.sempls.length;
-        System.out.println("Ошибка определения команд "+error);
+        jTextArea1.setText(jTextArea1.getText()+"Ошибка определения команд "+error+"\n");
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // распознование с помощью НС
         ExecuteData testData = new ExecuteData();
-        int maxCoef = 0, countComm = 0;
+        
+        int maxCoef = 0;
+        long startTime = System.currentTimeMillis();
         try{
             db.openDB();
             maxCoef = db.maxLengthMfcc();
-            countComm = db.countCommands();
             testData = db.executeRecord(2);
             //System.out.println(db.maxLengthMfcc());
             db.closeDB();
@@ -766,37 +799,55 @@ public class Function extends javax.swing.JFrame {
         } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(WorkDB.class.getName()).log(Level.SEVERE, null, ex);
         }
-        SigmoidLayer[] sl = new SigmoidLayer[3];
-        sl[0] = new SigmoidLayer(maxCoef, maxCoef, false);
-        sl[1] = new SigmoidLayer(maxCoef, maxCoef/2, false);
-	sl[2] = new SigmoidLayer(maxCoef/2, countComm, false);
-        
-        //Создание нейронной сети
-        bpw = new BackpropNetwork(sl);
-        bpw.loadFromFile("network");
+        long spentTime = System.currentTimeMillis() - startTime;
+        jTextArea1.setText(jTextArea1.getText()+"Время загрузки команд из БД в память "+spentTime+ "\n");
+        bpw = (BackpropNetwork) bpw.loadFromFile(jTextField14.getText());
         int[] myArray = new int[testData.sempls.length];
-        for (int k = 0; k < testData.sempls.length; k++){
-            float[] input = new float[maxCoef];
-                
-            for (int l = 0; l < maxCoef; l++){
-                //int ind = myArray[k];
-                if (l < testData.sempls[k].length){
-                    input[l] = testData.sempls[k][l];
-                }else {
-                    input[l] = 0;
+        jTextArea1.setText(jTextArea1.getText()+"Результат распознования с помощью НС\n");
+        startTime = System.currentTimeMillis();
+        float error = 0;
+        try{
+            db.openDB();
+            for (int k = 0; k < testData.sempls.length; k++){
+                float[] input = new float[maxCoef];
+
+                for (int l = 0; l < maxCoef; l++){
+                    //int ind = myArray[k];
+                    if (l < testData.sempls[k].length){
+                        input[l] = testData.sempls[k][l];
+                    }else {
+                        input[l] = 0;
+                    }
                 }
+                float[] out = bpw.computeOutput(input); 
+                for (int i = 0; i < out.length; i++){
+                    //System.out.print(out[i]+" ");
+                    //jTextArea1.setText(jTextArea1.getText()+out[i]+"    ");
+                    String val="";
+                    if (out[i]>=0.95){
+                        val = "1";
+                        //jTextArea1.setText(jTextArea1.getText()+i+" ");
+                        break;
+                    }
+                    else if ((out[i]<0.95) && (out[i]>0.05)){
+                        val = "-1";
+                        error += 1;
+                        String nameComm = db.getCommand(k);
+                        jTextArea1.setText(jTextArea1.getText()+"Команда определена не верно "+(k+1)+"  Имя команды "+nameComm+"\n");
+
+                        break;
+                    }
+                }
+                //jTextArea1.setText(jTextArea1.getText()+"\n");
             }
-            float[] out = bpw.computeOutput(input);
-            for (int i = 0; i < out.length; i++){
-                if (out[i]>=0.95)
-                    System.out.print("1");
-                else if (out[i] <= 0.05) 
-                    System.out.print("0");
-                else
-                    System.out.print("-1");
-            }
-            System.out.println();
+            db.closeDB();
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(WorkDB.class.getName()).log(Level.SEVERE, null, ex);
         }
+        spentTime = System.currentTimeMillis() - startTime;
+        jTextArea1.setText(jTextArea1.getText()+"\nВремя работы НС и расчета ошибки "+spentTime+"\n");
+        error = error/testData.sempls.length;
+        jTextArea1.setText(jTextArea1.getText()+"Ошибка определения команд "+error+"\n");
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
@@ -807,6 +858,7 @@ public class Function extends javax.swing.JFrame {
         int maxCoef = 0, countComm = 0;
         
         long startTime = System.currentTimeMillis();
+        System.out.println("Начало загрузки команд из БД в память");
         try{
             db.openDB();
             maxCoef = db.maxLengthMfcc();
@@ -835,21 +887,25 @@ public class Function extends javax.swing.JFrame {
         float rate = Float.parseFloat(jTextField12.getText()) ;
         float momentum = Float.parseFloat(jTextField13.getText()) ;
         float error = 0;
-        float[][] seek = {{1,0,0,0},
+        float[][] seek = new float[countComm][countComm];
+        for (int i = 0; i < seek.length; i++)
+            seek[i][i]=1;
+        /*{{1,0,0,0},
             {0, 1, 0, 0},
             {0, 0, 1, 0},
-            {0, 0, 0, 1}};
+            {0, 0, 0, 1}};*/
         //int[] value; // Произвольные числа для выбора   
         //float outValue;//value = (int) (1 + Math.random()*learnData.sempls.length);
         
         //int[] g = generated.;
-        yData = new double[1500];
-        xData = new double[1500];
         int epoch = Integer.parseInt(jTextField7.getText());
+        yData = new double[epoch];
+        xData = new double[epoch];
         float desiredError = Float.parseFloat(jTextField8.getText());
+        float summError = 0;
         for (int i = 0; i<epoch; i++){
             xData[i] = i;
-            float summError = 0; // суммарная ошибка обучения на iой эпохи
+            summError = 0; // суммарная ошибка обучения на iой эпохи
             int[] myArray = new int[learnData.sempls.length];
             int p = 0;
             int value = 0;
@@ -880,8 +936,8 @@ public class Function extends javax.swing.JFrame {
                     }
                 }
 
-                float[] goal = new float[4];
-                for(int l = 0; l < 4; l++){
+                float[] goal = new float[seek.length];
+                for(int l = 0; l < goal.length; l++){
                     int ind = myArray[k];
                     goal[l] = seek[learnData.commandsIds[ind]-1][l];
                 }
@@ -900,15 +956,37 @@ public class Function extends javax.swing.JFrame {
             yData[i] = summError/(learnData.sempls.length-1);
             System.out.println("Номер эпохи "+i+"\tОшибка "+summError/(learnData.sempls.length-1));
         }
-        
-        XYChart chart = QuickChart.getChart("График ошибки обучения", "Эпохи", "Ошибка обчуения", "E(x)", xData, yData);
-        new SwingWrapper(chart).displayChart();
-        
+        String message = "";
+        if (summError > desiredError){
+            message = "Заданное условие ошибки ВЫПОЛНЕНО для заданного кол-ва эпох";
+        }else{
+            message = "Заданное условие ошибки НЕ ВЫПОЛНЕНО для заданного кол-ва эпох";
+        }
+        JOptionPane.showMessageDialog(null, message, "Информация", JOptionPane.INFORMATION_MESSAGE);
         //Сохранение нейронной сети
-        bpw.saveToFile("network");
+        String name = jTextField14.getText();
+        if (new File(name).exists()){
+            int result = JOptionPane.showConfirmDialog(null, "Вы действительно хотите перезаписать обученную НС", 
+                                              "Предупреждение",
+                                              JOptionPane.WARNING_MESSAGE);
+            if (result == JOptionPane.YES_OPTION){
+                bpw.saveToFile(name);
+            }else {
+                name = name+"1";
+                bpw.saveToFile(name);
+            }   
+        }else
+            bpw.saveToFile(name);
+        chart = QuickChart.getChart("График ошибки обучения", "Эпохи", "Ошибка обчуения", "E(x)", xData, yData);
+        JFrame displayChart = new SwingWrapper(chart).displayChart();
+        displayChart.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
         //Network n = null;
         //n.loadFromFile("network");
     }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        jTextArea1.setText("");
+    }//GEN-LAST:event_jButton5ActionPerformed
 
     private void loadCommands(){
         try {
@@ -934,6 +1012,7 @@ public class Function extends javax.swing.JFrame {
     private double[] yData = new double[0];
     private double[] xData = new double[0];
     private static String[] commands;
+    public static XYChart chart;
     public static DB db;
     public static EditCmd editCmd;
     public static WorkDB workdb;
@@ -945,10 +1024,12 @@ public class Function extends javax.swing.JFrame {
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton7;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
@@ -991,6 +1072,7 @@ public class Function extends javax.swing.JFrame {
     public javax.swing.JTextField jTextField11;
     private javax.swing.JTextField jTextField12;
     private javax.swing.JTextField jTextField13;
+    private javax.swing.JTextField jTextField14;
     public javax.swing.JTextField jTextField2;
     public javax.swing.JTextField jTextField3;
     private javax.swing.JTextField jTextField4;

@@ -79,7 +79,7 @@ public class DB {
             statmt.execute("INSERT INTO property_commands ('id','name','c_id','s_id') VALUES ("+id_prop+", \'"+nameFile+"\',"+idC+","+speakerId+")");
         }
 	//statmt.execute("INSERT INTO 'commands' ('id','name') VALUES (13,'stroka')");
-            //statmt.execute("INSERT INTO commands ('id','name') VALUES ("+id+", '"+str+"')");
+        //statmt.execute("INSERT INTO commands ('id','name') VALUES ("+id+", '"+str+"')");
     }
 	
     public static void separateRecord() throws ClassNotFoundException, SQLException{
@@ -204,6 +204,12 @@ public class DB {
         maxValue = resSet.getInt("count(m.id)");
         return maxValue;
     }
+    public static String getCommand(int ID)throws ClassNotFoundException,SQLException{
+        String command = "";
+        resSet = statmt.executeQuery("SELECT name FROM commands WHERE ID = "+ID);
+        command = resSet.getString("name");
+        return command;
+    }
     
     public static String[] getCommands() throws ClassNotFoundException,SQLException
     {
@@ -218,7 +224,7 @@ public class DB {
                     i++;
                 }
             }  
-            return commands;       
+        return commands;       
     }
     
     public static int minLengthMfcc()throws SQLException, ClassNotFoundException{
