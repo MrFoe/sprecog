@@ -56,9 +56,6 @@ public class WorkDB extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
-        jButton6 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -83,27 +80,6 @@ public class WorkDB extends javax.swing.JFrame {
             }
         });
 
-        jButton4.setText("Расчет минимального расстояния");
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
-            }
-        });
-
-        jButton5.setText("Обучение нейронной сети");
-        jButton5.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton5ActionPerformed(evt);
-            }
-        });
-
-        jButton6.setText("Определение команды");
-        jButton6.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton6ActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -114,19 +90,10 @@ public class WorkDB extends javax.swing.JFrame {
                 .addGap(21, 21, 21))
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButton1)
-                        .addGap(51, 51, 51)
-                        .addComponent(jButton2))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(20, 20, 20)
-                        .addComponent(jButton4))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButton5)
-                        .addGap(41, 41, 41)
-                        .addComponent(jButton6)))
-                .addContainerGap(405, Short.MAX_VALUE))
+                .addComponent(jButton1)
+                .addGap(51, 51, 51)
+                .addComponent(jButton2)
+                .addContainerGap(501, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -135,13 +102,7 @@ public class WorkDB extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
                     .addComponent(jButton2))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton5)
-                    .addComponent(jButton6))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 297, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 383, Short.MAX_VALUE)
                 .addComponent(jButton3)
                 .addContainerGap())
         );
@@ -160,7 +121,7 @@ public class WorkDB extends javax.swing.JFrame {
             try {
                 long startTime = System.currentTimeMillis();
                 db.openDB();
-                db.deleteAllCommands();
+                //db.deleteAllCommands();
                 for (int l = 0; l < importFiles.length; l++){
                     wf =  new WaveFile(importFiles[l]);
                     //System.out.println(wf.getAudioFormat());
@@ -177,7 +138,7 @@ public class WorkDB extends javax.swing.JFrame {
                     Resamples rs = new Resamples(FdataFromImport, crossing, longSignal*100, freamLngth, false); 
                     float[][] resData = rs.count();
          
-                    float sampleRate = 22050.0f; // для конкретной моей задачи
+                    float sampleRate = 22050.0f; // для конкретной моей выборки
                     int amountOfCepstrumCoef = Integer.parseInt(function.jTextField1.getText());
                     int amountOfMelFilters = Integer.parseInt(function.jTextField9.getText());
                     float lowerFilterFreq = Float.parseFloat(function.jTextField10.getText());
@@ -203,6 +164,7 @@ public class WorkDB extends javax.swing.JFrame {
                     }
                     // Нахождение команды и имя файл
                     String fileName = importFiles[l].getName();
+                    fileName = fileName.toLowerCase();
                     int pos = fileName.indexOf(".");
                     String name = fileName.substring(0, pos);
                     pos = name.indexOf("_");
@@ -239,213 +201,10 @@ public class WorkDB extends javax.swing.JFrame {
         function.setVisible(true);
     }//GEN-LAST:event_jButton3ActionPerformed
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        Stack st = new Stack();
-        DTW dtw = new DTW();
-        ExecuteData testData = new ExecuteData();
-        ExecuteData learnData = new ExecuteData();
-        //float [][] testSamples = new float[0][0];
-        //float [][] learSamples = new float[0][0]; 
-        //int [] testCmdIds = new int[0];
-        //int [] learnCmdIds = new int[0];
-              
-        //вызов коэфициентов из БД
-        long startTime = System.currentTimeMillis();
-        try{
-            db.openDB();
-            testData = db.executeRecord(2);
-            learnData = db.executeRecord(1);
-            db.closeDB();
-            
-        } catch (ClassNotFoundException | SQLException ex) {
-            Logger.getLogger(WorkDB.class.getName()).log(Level.SEVERE, null, ex);
-        } 
-        long spentTime = System.currentTimeMillis() - startTime;
-        System.out.println("Время загрузки команд из БД в память "+spentTime);
-        
-        //расчет min DTW расстояния
-        startTime = System.currentTimeMillis();
-        float error = 0;
-        for (int i = 0; i < testData.sempls.length; i++){
-            float min = 100000000;
-            int cmdId = -1;
-            float[] mf1 = new float [testData.sempls[i].length];
-            for (int k=0; k < testData.sempls[i].length; k++){
-                mf1[k] = testData.sempls[i][k];
-            }
-            for (int l = 0; l < learnData.sempls.length; l++){
-                float[] mf2 = new float [learnData.sempls[l].length];
-                //System.out.println(l);
-                for (int k=0; k < learnData.sempls[l].length; k++){
-                    mf2[k] = learnData.sempls[l][k];
-                }
-                st.clear();
-                float[][] dw = new float [mf1.length][mf2.length];
-                dtw.dtw(mf1, mf2, dw, st);
-                float summ = 0;
-                while(!st.empty()){
-                    summ +=(float) st.pop();
-                }
-                //System.out.println(summ);
-                if (summ < min){
-                    min = summ;
-                    cmdId = learnData.commandsIds[l];
-                }
-            }
-            
-            //System.out.println();
-            if (cmdId != testData.commandsIds[i]){
-                error++;
-                System.out.print("ID тестовой команды "+testData.commandsIds[i]);
-                System.out.print("     Минимальное расстояние до схожего ряда "+min);
-                System.out.println("   ID обучающей команды "+cmdId);
-            }
-        } 
-        spentTime = System.currentTimeMillis() - startTime;
-        System.out.println();
-        System.out.println("Время работы DTW и расчета ошибки "+spentTime);
-        System.out.println(error);
-        error = error/testData.sempls.length;
-        System.out.println("Ошибка определения команд "+error);
-    }//GEN-LAST:event_jButton4ActionPerformed
-
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        //Загрузка данных и БД
-        //ExecuteData testData = new ExecuteData();
-        ExecuteData learnData = new ExecuteData();
-        //ExecuteData verfData = new ExecuteData();
-        int maxCoef = 0, countComm = 0;
-        
-        long startTime = System.currentTimeMillis();
-        try{
-            db.openDB();
-            maxCoef = db.maxLengthMfcc();
-            countComm = db.countCommands();
-            learnData = db.executeRecord(1);
-            //System.out.println(db.maxLengthMfcc());
-            db.closeDB();
-            
-        } catch (ClassNotFoundException | SQLException ex) {
-            Logger.getLogger(WorkDB.class.getName()).log(Level.SEVERE, null, ex);
-        } 
-        long spentTime = System.currentTimeMillis() - startTime;
-        System.out.println("Время загрузки команд из БД в память "+spentTime);
-        
-        // Задание слоев нейронной сети
-        SigmoidLayer[] sl = new SigmoidLayer[3];
-        //int minC = getMin();
-        sl[0] = new SigmoidLayer(maxCoef, maxCoef, false);
-        sl[1] = new SigmoidLayer(maxCoef, maxCoef/2, false);
-	sl[2] = new SigmoidLayer(maxCoef/2, countComm, false);
-        
-        //Создание нейронной сети
-        BackpropNetwork  bpw = new BackpropNetwork(sl);
-        bpw.randomize(-0.5f, 0.5f);
-        float rate = 0.6f ;
-        float momentum = 0.01f;
-        float error = 0;
-        float[][] seek = {{1,0,0,0},
-            {0, 1, 0, 0},
-            {0, 0, 1, 0},
-            {0, 0, 0, 1}};
-        //int[] value; // Произвольные числа для выбора   
-        //float outValue;//value = (int) (1 + Math.random()*learnData.sempls.length);
-        
-        //int[] g = generated.;
-        yData = new double[1500];
-        xData = new double[1500];
-        for (int i = 0; i<1500; i++){
-            xData[i] = i;
-            float summ = 0;
-            int[] myArray = new int[learnData.sempls.length];
-            int p = 0;
-            int value = 0;
-            while (p < learnData.sempls.length){
-                    value = (int) (Math.random()*(learnData.sempls.length));
-                    boolean flag = true;
-                    for (int u = 0; u < p; u++){
-                        if (myArray[u] == value){
-                            flag = false;
-                            break;
-                        }    
-                    }
-                    if (flag){
-                       myArray[p] = value;        
-                       p++; 
-                    }  
-            }
-            //System.out.println("Дааааааааааааааааааа");
-            for (int k = 0; k < learnData.sempls.length; k++){
-                float[] input = new float[maxCoef];
-                
-                for (int l = 0; l < maxCoef; l++){
-                    int ind = myArray[k];
-                    if (l < learnData.sempls[ind].length){
-                        input[l] = learnData.sempls[ind][l];
-                    }else {
-                        input[l] = 0;
-                    }
-                }
-
-                float[] goal = new float[4];
-                for(int l = 0; l < 4; l++){
-                    int ind = myArray[k];
-                    goal[l] = seek[learnData.commandsIds[ind]-1][l];
-                }
-                error = bpw.learnPattern(input, goal, rate, momentum);
-                float[] output = new float[countComm];
-                output = bpw.computeOutput(input);
-                /*if (i == 1499){
-                for (int g = 0; g < output.length; g++){
-                    System.out.println(output[g]);
-                }}*/
-                summ += error;
-            }
-            yData[i] = summ/(learnData.sempls.length-1);
-            System.out.println("Номер эпохи "+i+"\tОшибка "+summ/(learnData.sempls.length-1));
-        }
-        XYChart chart = QuickChart.getChart("Sample Chart", "X", "Y", "y(x)", xData, yData);
-        new SwingWrapper(chart).displayChart();
-        //Сохранение нейронной сети
-        bpw.saveToFile("network");
-        //Network n = null;
-        //n.loadFromFile("network");
-    }//GEN-LAST:event_jButton5ActionPerformed
-
-    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-        BackpropNetwork bpw = null;
-        bpw.loadFromFile("network");
-        
-        /*WaveFile wf;
-=======
-
-        /*
-        BackpropNetwork bpw;
-        WaveFile wf;
->>>>>>> 58c3771d6c8691deb42df0f1d4301c3e89542cbd
-        File file = new File("//home//semen//Documents//MPEI//UNIR//Выборки//Ярушко_преобразованная//d_3.wav"); 
-        try {
-            wf = new WaveFile(file);
-            short[] shyData = wf.getData();
-            yData = new double[shyData.length];
-            for (int i = 0; i<shyData.length; i++)
-                yData[i] = shyData[i];
-        } catch (UnsupportedAudioFileException ex) {
-            Logger.getLogger(WorkDB.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex) {
-            Logger.getLogger(WorkDB.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-        xData = new double[yData.length];
-        for (int i = 0; i < yData.length; i++)
-            xData[i] = i;
-        XYChart chart = QuickChart.getChart("Sample Chart", "X", "Y", "y(x)", xData, yData);
-        new SwingWrapper(chart).displayChart();*/
-    }//GEN-LAST:event_jButton6ActionPerformed
-
     /**
      * @param args the command line arguments
      */
+    private BackpropNetwork bpw = null;
     private double[] yData = new double[0];
     private double[] xData = new double[0];
     private File [] importFiles;
@@ -453,8 +212,5 @@ public class WorkDB extends javax.swing.JFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
     // End of variables declaration//GEN-END:variables
 }

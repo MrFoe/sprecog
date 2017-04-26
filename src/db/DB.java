@@ -84,8 +84,9 @@ public class DB {
 	
     public static void separateRecord() throws ClassNotFoundException, SQLException{
         
-        statmt.execute("delete from samples");
-        statmt.execute("delete from s_content");
+        //statmt.execute("delete from samples");
+        //statmt.execute("delete from s_content");
+        
         int maxId = getMaxId("samples");
         maxId++;
         statmt.execute("INSERT INTO samples ('id','name_alg','samples_type') VALUES ("+maxId+", \'"+"DTW"+"\',"+1+")");
