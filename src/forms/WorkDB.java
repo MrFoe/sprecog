@@ -84,6 +84,9 @@ public class WorkDB extends javax.swing.JFrame {
 
         jLabel1.setText("Номер диктора");
 
+        jSpinner1.setEditor(new javax.swing.JSpinner.NumberEditor(jSpinner1, ""));
+        jSpinner1.setValue(1);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -93,14 +96,15 @@ public class WorkDB extends javax.swing.JFrame {
                 .addComponent(jButton3)
                 .addGap(21, 21, 21))
             .addGroup(layout.createSequentialGroup()
-                .addGap(44, 44, 44)
-                .addComponent(jLabel1)
-                .addGap(51, 51, 51)
-                .addComponent(jSpinner1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(64, 64, 64)
-                .addComponent(jButton1)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(44, 44, 44)
+                        .addComponent(jLabel1)
+                        .addGap(32, 32, 32)
+                        .addComponent(jSpinner1, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addGap(64, 64, 64)
+                        .addComponent(jButton1)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 332, Short.MAX_VALUE)
                 .addComponent(jButton2)
                 .addGap(121, 121, 121))
@@ -138,7 +142,8 @@ public class WorkDB extends javax.swing.JFrame {
                 //db.deleteAllCommands();
                 for (int l = 0; l < importFiles.length; l++){
                     wf =  new WaveFile(importFiles[l]);
-                    //System.out.println(wf.getAudioFormat());
+                    //convert file format to str
+                    String af = wf.getAudioFormat().toString();
                     short[] dataFromImport = wf.getData();
                     float[] FdataFromImport = new float[dataFromImport.length];
                 
@@ -152,7 +157,7 @@ public class WorkDB extends javax.swing.JFrame {
                     Resamples rs = new Resamples(FdataFromImport, crossing, longSignal*100, freamLngth, false); 
                     float[][] resData = rs.count();
          
-                    float sampleRate = 22050.0f; // для конкретной моей выборки
+                    float sampleRate = wf.getAudioFormat().getSampleRate();//wf.getAudioFormat().get; // для конкретной моей выборки
                     int amountOfCepstrumCoef = Integer.parseInt(function.jTextField1.getText());
                     int amountOfMelFilters = Integer.parseInt(function.jTextField9.getText());
                     float lowerFilterFreq = Float.parseFloat(function.jTextField10.getText());
@@ -186,7 +191,8 @@ public class WorkDB extends javax.swing.JFrame {
                     
                     // Загурзка данных в БД
                     //1 - номер диктора
-                    db.addRecord(name, nameCommand, fullOt, 1);
+                    int numSpeak = (int)jSpinner1.getValue();
+                    db.addRecord(name, nameCommand, fullOt, numSpeak, af);
                     //System.out.println(name+"    "+nameCommand);
                 }
                 db.closeDB();

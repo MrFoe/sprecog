@@ -38,7 +38,7 @@ public class DB {
             stat = conn.createStatement();
         }
         
-    public static void addRecord(String nameFile, String nameComm,  float[] value, int speakerId) throws ClassNotFoundException,SQLException
+    public static void addRecord(String nameFile, String nameComm,  float[] value, int speakerId, String fileInfo) throws ClassNotFoundException,SQLException
     {
         String sqlStr = "SELECT * FROM commands";
         //nameComm = nameComm.toLowerCase();
@@ -61,9 +61,11 @@ public class DB {
             int id_prop = getMaxId("property_commands");
             id_prop++;
             for (int i = 0 ; i < value.length; i++){
-                statmt.execute("INSERT INTO mfcc ('id','id_prop','mfcc_values','id_samples') VALUES ("+(id+i)+','+ id_prop + ',' + value[i]+','+ i + ")");
+                statmt.execute("INSERT INTO mfcc ('id','id_prop','mfcc_values','id_samples')"
+                        + " VALUES ("+(id+i)+','+ id_prop + ',' + value[i]+','+ i + ")");
             }
-            statmt.execute("INSERT INTO property_commands ('id','name','c_id', 's_id') VALUES ("+id_prop+", \'"+nameFile+"\',"+exId+","+speakerId+")");
+            statmt.execute("INSERT INTO property_commands ('id','name','c_id', 's_id')"
+                    + " VALUES ("+id_prop+", \'"+nameFile+"\',"+exId+","+speakerId+", \'"+fileInfo+"\',"+")");
                 
         }else{
             int idC = getMaxId("commands");
@@ -74,9 +76,11 @@ public class DB {
             int id_prop = getMaxId("property_commands");
             id_prop++;
             for (int i = 0 ; i < value.length; i++){
-                statmt.execute("INSERT INTO mfcc ('id','id_prop','mfcc_values','id_samples') VALUES ("+(id+i)+','+ id_prop + ',' + value[i]+','+ i + ")");
+                statmt.execute("INSERT INTO mfcc ('id','id_prop','mfcc_values','id_samples')"
+                        + " VALUES ("+(id+i)+','+ id_prop + ',' + value[i]+','+ i + ")");
             }
-            statmt.execute("INSERT INTO property_commands ('id','name','c_id','s_id') VALUES ("+id_prop+", \'"+nameFile+"\',"+idC+","+speakerId+")");
+            statmt.execute("INSERT INTO property_commands ('id','name','c_id','s_id', 'prop_cmd') VALUES ("+id_prop+
+                    ", \'"+nameFile+"\',"+idC+","+speakerId+", \'"+fileInfo+"\',"+")");
         }
 	//statmt.execute("INSERT INTO 'commands' ('id','name') VALUES (13,'stroka')");
         //statmt.execute("INSERT INTO commands ('id','name') VALUES ("+id+", '"+str+"')");
