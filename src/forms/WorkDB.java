@@ -58,6 +58,13 @@ public class WorkDB extends javax.swing.JFrame {
         jButton3 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jSpinner1 = new javax.swing.JSpinner();
+        jSpinner2 = new javax.swing.JSpinner();
+        jLabel2 = new javax.swing.JLabel();
+        jRadioButton1 = new javax.swing.JRadioButton();
+        jSpinner3 = new javax.swing.JSpinner();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jTextField1 = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -87,6 +94,21 @@ public class WorkDB extends javax.swing.JFrame {
         jSpinner1.setEditor(new javax.swing.JSpinner.NumberEditor(jSpinner1, ""));
         jSpinner1.setValue(1);
 
+        jSpinner2.setValue(1);
+
+        jLabel2.setText("Количество записей для забиения");
+
+        jRadioButton1.setSelected(true);
+        jRadioButton1.setText("Все спикеры");
+
+        jSpinner3.setValue(1);
+
+        jLabel3.setText("Норме спикера");
+
+        jLabel4.setText("Имя диктора");
+
+        jTextField1.setText("Кудрина");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -95,19 +117,39 @@ public class WorkDB extends javax.swing.JFrame {
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(jButton3)
                 .addGap(21, 21, 21))
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(44, 44, 44)
-                        .addComponent(jLabel1)
-                        .addGap(32, 32, 32)
-                        .addComponent(jSpinner1, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addGap(64, 64, 64)
-                        .addComponent(jButton1)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 332, Short.MAX_VALUE)
-                .addComponent(jButton2)
-                .addGap(121, 121, 121))
+                        .addComponent(jButton1))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(44, 44, 44)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(32, 32, 32)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jSpinner1, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 64, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(jButton2)
+                                .addGap(121, 121, 121))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel2)
+                                    .addComponent(jLabel3))
+                                .addGap(120, 120, 120)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jSpinner3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jSpinner2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(165, 165, 165))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(91, 91, 91)
+                        .addComponent(jRadioButton1))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -115,8 +157,18 @@ public class WorkDB extends javax.swing.JFrame {
                 .addGap(143, 143, 143)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(jSpinner1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(101, 101, 101)
+                    .addComponent(jSpinner1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jSpinner2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jSpinner3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3)
+                    .addComponent(jLabel4)
+                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jRadioButton1)
+                .addGap(40, 40, 40)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
                     .addComponent(jButton2))
@@ -132,12 +184,14 @@ public class WorkDB extends javax.swing.JFrame {
         String currPath  = System.getProperty("user.dir");
         javax.swing.JFileChooser fileCh = new javax.swing.JFileChooser(currPath); 
         fileCh.setMultiSelectionEnabled(true);
-        WaveFile wf;
-        int ret = fileCh.showDialog(null, "Открыть файл");      
+        int ret = fileCh.showDialog(null, "Открыть файл");   
         if (ret == fileCh.APPROVE_OPTION) {
+            WaveFile wf;
+            String nameSpeaker = jTextField1.getText();
+            int numSpeak = (int)jSpinner1.getValue();
             importFiles = fileCh.getSelectedFiles();
+            long startTime = System.currentTimeMillis();
             try {
-                long startTime = System.currentTimeMillis();
                 db.openDB();
                 //db.deleteAllCommands();
                 for (int l = 0; l < importFiles.length; l++){
@@ -190,17 +244,16 @@ public class WorkDB extends javax.swing.JFrame {
                     String nameCommand = name.substring(0,pos);
                     
                     // Загурзка данных в БД
-                    //1 - номер диктора
-                    int numSpeak = (int)jSpinner1.getValue();
-                    db.addRecord(name, nameCommand, fullOt, numSpeak, af);
+                    //jSpinner1 - номер дикторa
+                    db.addRecord(name, nameCommand, fullOt, numSpeak, nameSpeaker, af);
                     //System.out.println(name+"    "+nameCommand);
                 }
                 db.closeDB();
-                long spentTime = System.currentTimeMillis() - startTime;
-                System.out.println("Загрузка завершена \nВремя записи выборки в БД  "+spentTime);
                 } catch (UnsupportedAudioFileException | IOException | ClassNotFoundException |SQLException ex) {
                     Logger.getLogger(WorkDB.class.getName()).log(Level.SEVERE, null, ex);
             }
+            long spentTime = System.currentTimeMillis() - startTime;
+            System.out.println("Загрузка завершена \nВремя записи выборки в БД  "+spentTime);
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -233,6 +286,13 @@ public class WorkDB extends javax.swing.JFrame {
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JRadioButton jRadioButton1;
     private javax.swing.JSpinner jSpinner1;
+    private javax.swing.JSpinner jSpinner2;
+    private javax.swing.JSpinner jSpinner3;
+    private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
 }

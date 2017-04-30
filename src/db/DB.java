@@ -38,7 +38,7 @@ public class DB {
             stat = conn.createStatement();
         }
         
-    public static void addRecord(String nameFile, String nameComm,  float[] value, int speakerId, String fileInfo) throws ClassNotFoundException,SQLException
+    public static void addRecord(String nameFile, String nameComm,  float[] value, int speakerId, String nameSpeaker, String fileInfo) throws ClassNotFoundException,SQLException
     {
         String sqlStr = "SELECT * FROM commands";
         //nameComm = nameComm.toLowerCase();
@@ -175,6 +175,12 @@ public class DB {
         return exData;
     }
 	
+    public static String getInfoSample(){
+        //prototype method
+        String infoSample = "";
+        return infoSample;
+    }
+    
     public static void deleteAllCommands() throws ClassNotFoundException,SQLException
     {
 	String sqlStr = "delete from mfcc";
@@ -183,6 +189,12 @@ public class DB {
 	statmt.execute(sqlStr);
         sqlStr = "delete from commands";
 	statmt.execute(sqlStr);
+        sqlStr = "delete from samples";
+        statmt.execute(sqlStr);
+        sqlStr = "delete from s_content";
+        statmt.execute(sqlStr);
+        sqlStr = "delete from speakers";
+        statmt.execute(sqlStr);
     }
 	
     public static void editCommand(String strFrom,String strTo) throws ClassNotFoundException,SQLException
@@ -208,6 +220,7 @@ public class DB {
         maxValue = resSet.getInt("count(m.id)");
         return maxValue;
     }
+    
     public static String getCommand(int ID)throws ClassNotFoundException,SQLException{
         String command = "";
         resSet = statmt.executeQuery("SELECT name FROM commands WHERE ID = "+ID);

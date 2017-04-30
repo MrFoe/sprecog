@@ -118,6 +118,8 @@ public class Function extends javax.swing.JFrame {
         jPanel10 = new javax.swing.JPanel();
         jSpinner2 = new javax.swing.JSpinner();
         jLabel13 = new javax.swing.JLabel();
+        jLabel28 = new javax.swing.JLabel();
+        jLabel29 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -653,16 +655,28 @@ public class Function extends javax.swing.JFrame {
 
         jLabel13.setText("Количество скрытых слоев");
 
+        jLabel28.setText("Количество нейроннов на первом скрытом слое");
+
+        jLabel29.setText("Количество нейроннов на последнем скрытом слое");
+
         javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
         jPanel10.setLayout(jPanel10Layout);
         jPanel10Layout.setHorizontalGroup(
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel10Layout.createSequentialGroup()
+            .addGroup(jPanel10Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jSpinner2, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(37, 37, 37))
+                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel10Layout.createSequentialGroup()
+                        .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 87, Short.MAX_VALUE)
+                        .addComponent(jSpinner2, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(37, 37, 37))
+                    .addGroup(jPanel10Layout.createSequentialGroup()
+                        .addComponent(jLabel28)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel10Layout.createSequentialGroup()
+                        .addComponent(jLabel29)
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
         jPanel10Layout.setVerticalGroup(
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -671,6 +685,10 @@ public class Function extends javax.swing.JFrame {
                 .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jSpinner2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel13))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel28)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel29)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -949,17 +967,19 @@ public class Function extends javax.swing.JFrame {
          //Загрузка данных и БД
         ExecuteData testData = new ExecuteData();
         ExecuteData learnData = new ExecuteData();
-        //ExecuteData verfData = new ExecuteData();
+        ExecuteData verfData = new ExecuteData();
         int maxCoef = 0, countComm = 0;
-        
+        String infoSmpl = "";
         long startTime = System.currentTimeMillis();
         System.out.println("Начало загрузки команд из БД в память");
         try{
             db.openDB();
             maxCoef = db.maxLengthMfcc();
             countComm = db.countCommands();
-            learnData = db.executeRecord(1);
-            testData = db.executeRecord(2);
+            learnData = db.executeRecord(1); //Download learn sample from DB
+            testData = db.executeRecord(2); //Download test sample from DB
+            verfData = db.executeRecord(3); //Download verification sample from DB
+            infoSmpl =  db.getInfoSample();
             //System.out.println(db.maxLengthMfcc());
             db.closeDB();
             
@@ -970,11 +990,12 @@ public class Function extends javax.swing.JFrame {
         System.out.println("Время загрузки команд из БД в память "+spentTime);
         
         // Задание слоев нейронной сети
-        SigmoidLayer[] sl = new SigmoidLayer[3];
-        //int minC = getMin();
+        int layersSize = (int) jSpinner1.getValue();
+        SigmoidLayer[] sl = new SigmoidLayer[layersSize];
         sl[0] = new SigmoidLayer(maxCoef, maxCoef, false);
         sl[1] = new SigmoidLayer(maxCoef, maxCoef/2, false);
-	sl[2] = new SigmoidLayer(maxCoef/2, countComm, false);
+        sl[2] = new SigmoidLayer(maxCoef/2, countComm, false);
+        //int minC = getMin();
         
         //Создание нейронной сети
         bpw = new BackpropNetwork(sl);
@@ -1004,6 +1025,7 @@ public class Function extends javax.swing.JFrame {
             int[] myArray = new int[learnData.sempls.length];
             int p = 0;
             int value = 0;
+            //random distribution number from lear sample
             while (p < learnData.sempls.length){
                     value = (int) (Math.random()*(learnData.sempls.length));
                     boolean flag = true;
@@ -1018,7 +1040,7 @@ public class Function extends javax.swing.JFrame {
                        p++; 
                     }  
             }
-            //System.out.println("Дааааааааааааааааааа");
+            // process learn NW
             for (int k = 0; k < learnData.sempls.length; k++){
                 float[] input = new float[maxCoef];
                 
@@ -1039,15 +1061,8 @@ public class Function extends javax.swing.JFrame {
                 error = bpw.learnPattern(input, goal, rate, momentum);
                 float[] output = new float[countComm];
                 output = bpw.computeOutput(input);
-                /*if (i == 1499){
-                for (int g = 0; g < output.length; g++){
-                    System.out.println(output[g]);
-                }}*/
                 summError += error;
             }
-            /*if (summError/(learnData.sempls.length-1) <= desiredError){
-                break;
-            }*/
             yData[i] = summError/(learnData.sempls.length-1);
             System.out.println("Номер эпохи "+i+"\tОшибка "+summError/(learnData.sempls.length-1));
         }
@@ -1060,6 +1075,7 @@ public class Function extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(null, message, "Информация", JOptionPane.INFORMATION_MESSAGE);
         //Сохранение нейронной сети
         String name = jTextField14.getText();
+        name += infoSmpl;
         if (new File(name).exists()){
             int result = JOptionPane.showConfirmDialog(null, "Вы действительно хотите перезаписать обученную НС", 
                                               "Предупреждение",
@@ -1141,6 +1157,8 @@ public class Function extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel25;
     private javax.swing.JLabel jLabel26;
     private javax.swing.JLabel jLabel27;
+    private javax.swing.JLabel jLabel28;
+    private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
