@@ -64,8 +64,8 @@ public class DB {
                 statmt.execute("INSERT INTO mfcc ('id','id_prop','mfcc_values','id_samples')"
                         + " VALUES ("+(id+i)+','+ id_prop + ',' + value[i]+','+ i + ")");
             }
-            statmt.execute("INSERT INTO property_commands ('id','name','c_id', 's_id')"
-                    + " VALUES ("+id_prop+", \'"+nameFile+"\',"+exId+","+speakerId+", \'"+fileInfo+"\',"+")");
+            statmt.execute("INSERT INTO property_commands ('id','name','c_id', 's_id', 'prop_cmd')"
+                    + " VALUES ("+id_prop+", \'"+nameFile+"\',"+exId+","+speakerId+", \'"+fileInfo+"\'"+")");
                 
         }else{
             int idC = getMaxId("commands");

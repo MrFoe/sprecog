@@ -174,7 +174,7 @@
             <Component class="javax.swing.JLabel" name="jLabel27">
               <Properties>
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                  <Connection code="&quot;&#x41a;&#x43e;&#x43b;&#x447;&#x435;&#x441;&#x442;&#x432;&#x43e; &#x437;&#x430;&#x43f;&#x438;&#x441;&#x435;&#x439; &quot;" type="code"/>
+                  <Connection code="&quot;&#x41a;&#x43e;&#x43b;&#x438;&#x447;&#x435;&#x441;&#x442;&#x432;&#x43e; &#x437;&#x430;&#x43f;&#x438;&#x441;&#x435;&#x439; &quot;" type="code"/>
                 </Property>
               </Properties>
             </Component>
@@ -770,7 +770,7 @@
                     <DimensionLayout dim="0">
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
-                              <EmptySpace min="-2" pref="125" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="135" max="-2" attributes="0"/>
                               <Component id="jButton7" min="-2" pref="159" max="-2" attributes="0"/>
                               <EmptySpace max="32767" attributes="0"/>
                           </Group>
@@ -1051,12 +1051,12 @@
                       <SubComponents>
                         <Component class="javax.swing.JTextField" name="jTextField16">
                           <Properties>
-                            <Property name="text" type="java.lang.String" value="0.05"/>
+                            <Property name="text" type="java.lang.String" value="0.95"/>
                           </Properties>
                         </Component>
                         <Component class="javax.swing.JTextField" name="jTextField15">
                           <Properties>
-                            <Property name="text" type="java.lang.String" value="0.95"/>
+                            <Property name="text" type="java.lang.String" value="0.05"/>
                           </Properties>
                         </Component>
                         <Component class="javax.swing.JLabel" name="jLabel15">
@@ -1087,22 +1087,33 @@
                   <Layout>
                     <DimensionLayout dim="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" attributes="0">
+                          <Group type="102" alignment="0" attributes="0">
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="102" alignment="1" attributes="0">
-                                      <Component id="jLabel13" min="-2" pref="224" max="-2" attributes="0"/>
-                                      <EmptySpace pref="87" max="32767" attributes="0"/>
-                                      <Component id="jSpinner2" min="-2" pref="83" max="-2" attributes="0"/>
-                                      <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
-                                  </Group>
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <Component id="jLabel28" min="-2" max="-2" attributes="0"/>
+                                  <Group type="102" attributes="0">
+                                      <Component id="jRadioButton3" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace max="32767" attributes="0"/>
                                   </Group>
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <Component id="jLabel29" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                  <Group type="102" attributes="0">
+                                      <Group type="103" groupAlignment="1" attributes="0">
+                                          <Group type="102" alignment="1" attributes="0">
+                                              <Component id="jLabel13" min="-2" pref="224" max="-2" attributes="0"/>
+                                              <EmptySpace pref="87" max="32767" attributes="0"/>
+                                              <Component id="jSpinner2" min="-2" pref="83" max="-2" attributes="0"/>
+                                          </Group>
+                                          <Group type="102" alignment="1" attributes="0">
+                                              <Group type="103" groupAlignment="0" attributes="0">
+                                                  <Component id="jLabel28" alignment="0" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="jLabel29" alignment="0" min="-2" max="-2" attributes="0"/>
+                                              </Group>
+                                              <EmptySpace max="32767" attributes="0"/>
+                                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                                  <Component id="jSpinner3" pref="83" max="32767" attributes="0"/>
+                                                  <Component id="jSpinner4" max="32767" attributes="0"/>
+                                              </Group>
+                                          </Group>
+                                      </Group>
+                                      <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
                           </Group>
@@ -1117,9 +1128,17 @@
                                   <Component id="jLabel13" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jLabel28" min="-2" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="jLabel28" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jSpinner3" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Component id="jLabel29" min="-2" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="jLabel29" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jSpinner4" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Component id="jRadioButton3" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="32767" attributes="0"/>
                           </Group>
                       </Group>
@@ -1146,6 +1165,16 @@
                     <Component class="javax.swing.JLabel" name="jLabel29">
                       <Properties>
                         <Property name="text" type="java.lang.String" value="&#x41a;&#x43e;&#x43b;&#x438;&#x447;&#x435;&#x441;&#x442;&#x432;&#x43e; &#x43d;&#x435;&#x439;&#x440;&#x43e;&#x43d;&#x43d;&#x43e;&#x432; &#x43d;&#x430; &#x43f;&#x43e;&#x441;&#x43b;&#x435;&#x434;&#x43d;&#x435;&#x43c; &#x441;&#x43a;&#x440;&#x44b;&#x442;&#x43e;&#x43c; &#x441;&#x43b;&#x43e;&#x435;"/>
+                      </Properties>
+                    </Component>
+                    <Component class="javax.swing.JSpinner" name="jSpinner3">
+                    </Component>
+                    <Component class="javax.swing.JSpinner" name="jSpinner4">
+                    </Component>
+                    <Component class="javax.swing.JRadioButton" name="jRadioButton3">
+                      <Properties>
+                        <Property name="selected" type="boolean" value="true"/>
+                        <Property name="text" type="java.lang.String" value="&#x417;&#x430;&#x434;&#x430;&#x442;&#x44c; &#x43f;&#x440;&#x43e;&#x438;&#x437;&#x432;&#x43e;&#x43b;&#x44c;&#x43d;&#x44b;&#x435; &#x43d;&#x430;&#x447;&#x430;&#x43b;&#x44c;&#x43d;&#x44b;&#x435; &#x432;&#x435;&#x441;&#x430;"/>
                       </Properties>
                     </Component>
                   </SubComponents>

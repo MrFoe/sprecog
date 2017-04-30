@@ -120,6 +120,9 @@ public class Function extends javax.swing.JFrame {
         jLabel13 = new javax.swing.JLabel();
         jLabel28 = new javax.swing.JLabel();
         jLabel29 = new javax.swing.JLabel();
+        jSpinner3 = new javax.swing.JSpinner();
+        jSpinner4 = new javax.swing.JSpinner();
+        jRadioButton3 = new javax.swing.JRadioButton();
         jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -148,7 +151,7 @@ public class Function extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         jLabel2.setText("Количество команд "+commands.length);
 
-        jLabel27.setText("Колчество записей ");
+        jLabel27.setText("Количество записей ");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -477,7 +480,7 @@ public class Function extends javax.swing.JFrame {
         jPanel11Layout.setHorizontalGroup(
             jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel11Layout.createSequentialGroup()
-                .addGap(125, 125, 125)
+                .addGap(135, 135, 135)
                 .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -551,9 +554,9 @@ public class Function extends javax.swing.JFrame {
 
         jPanel12.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Пороги принятия решения", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 0, 14))); // NOI18N
 
-        jTextField16.setText("0.05");
+        jTextField16.setText("0.95");
 
-        jTextField15.setText("0.95");
+        jTextField15.setText("0.05");
 
         jLabel15.setText("Нижний порог");
 
@@ -659,6 +662,9 @@ public class Function extends javax.swing.JFrame {
 
         jLabel29.setText("Количество нейроннов на последнем скрытом слое");
 
+        jRadioButton3.setSelected(true);
+        jRadioButton3.setText("Задать произвольные начальные веса");
+
         javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
         jPanel10.setLayout(jPanel10Layout);
         jPanel10Layout.setHorizontalGroup(
@@ -666,17 +672,24 @@ public class Function extends javax.swing.JFrame {
             .addGroup(jPanel10Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel10Layout.createSequentialGroup()
-                        .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 87, Short.MAX_VALUE)
-                        .addComponent(jSpinner2, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(37, 37, 37))
                     .addGroup(jPanel10Layout.createSequentialGroup()
-                        .addComponent(jLabel28)
+                        .addComponent(jRadioButton3)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel10Layout.createSequentialGroup()
-                        .addComponent(jLabel29)
-                        .addGap(0, 0, Short.MAX_VALUE))))
+                        .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(jPanel10Layout.createSequentialGroup()
+                                .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 87, Short.MAX_VALUE)
+                                .addComponent(jSpinner2, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel10Layout.createSequentialGroup()
+                                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel28)
+                                    .addComponent(jLabel29))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jSpinner3, javax.swing.GroupLayout.DEFAULT_SIZE, 83, Short.MAX_VALUE)
+                                    .addComponent(jSpinner4))))
+                        .addGap(37, 37, 37))))
         );
         jPanel10Layout.setVerticalGroup(
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -686,9 +699,15 @@ public class Function extends javax.swing.JFrame {
                     .addComponent(jSpinner2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel13))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel28)
+                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel28)
+                    .addComponent(jSpinner3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel29)
+                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel29)
+                    .addComponent(jSpinner4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jRadioButton3)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -925,6 +944,8 @@ public class Function extends javax.swing.JFrame {
         jTextArea1.setText(jTextArea1.getText()+"Результат распознования с помощью НС\n");
         startTime = System.currentTimeMillis();
         float error = 0;
+        float upBorder = Float.parseFloat(jTextField16.getText());
+        float downBorder = Float.parseFloat(jTextField15.getText());
         try{
             db.openDB();
             for (int k = 0; k < testData.sempls.length; k++){
@@ -942,11 +963,11 @@ public class Function extends javax.swing.JFrame {
                 for (int i = 0; i < out.length; i++){
                     //System.out.print(out[i]+" ");
                     //jTextArea1.setText(jTextArea1.getText()+out[i]+"    ");
-                    if ((out[i]<0.95) && (out[i]>0.05)){
+                    if ((out[i] < upBorder) && (out[i] > downBorder)){
                         error += 1;
                         String nameComm = db.getCommand(k);
                         
-                        jTextArea1.setText(jTextArea1.getText()+"Команда определена не верно "+(k+1)+"  Имя команды "+nameComm+"\n");
+                        jTextArea1.setText(jTextArea1.getText()+"Команда определена не верно "+(k)+"  Имя команды "+nameComm+"\n");
 
                         break;
                     }
@@ -964,7 +985,7 @@ public class Function extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-         //Загрузка данных и БД
+        //Загрузка данных и БД
         ExecuteData testData = new ExecuteData();
         ExecuteData learnData = new ExecuteData();
         ExecuteData verfData = new ExecuteData();
@@ -992,14 +1013,30 @@ public class Function extends javax.swing.JFrame {
         // Задание слоев нейронной сети
         int layersSize = (int) jSpinner1.getValue();
         SigmoidLayer[] sl = new SigmoidLayer[layersSize];
-        sl[0] = new SigmoidLayer(maxCoef, maxCoef, false);
-        sl[1] = new SigmoidLayer(maxCoef, maxCoef/2, false);
-        sl[2] = new SigmoidLayer(maxCoef/2, countComm, false);
+        if (layersSize == 1){
+            sl[0] = new SigmoidLayer(maxCoef, countComm, false);
+        }
+        else if (layersSize == 2){
+            sl[0] = new SigmoidLayer(maxCoef, maxCoef/2, false);
+            sl[1] = new SigmoidLayer(maxCoef/2, countComm, false);
+        }else {
+            sl[0] = new SigmoidLayer(maxCoef, maxCoef, false);
+            int currInpt = maxCoef;
+            for (int i = 1; i < sl.length-1; i++){
+                sl[i] = new SigmoidLayer (currInpt, currInpt/2, false);
+                if (currInpt/2 > countComm)
+                    currInpt /= 2;
+            }
+            sl[sl.length-1] = new SigmoidLayer(maxCoef, countComm, false);
+        }
         //int minC = getMin();
         
         //Создание нейронной сети
         bpw = new BackpropNetwork(sl);
-        bpw.randomize(-0.5f, 0.5f);
+        //float startH = ;
+        //float endH = ;
+        if (jRadioButton3.isSelected())
+            bpw.randomize(-0.5f, 0.5f);
         float rate = Float.parseFloat(jTextField12.getText()) ;
         float momentum = Float.parseFloat(jTextField13.getText()) ;
         float error = 0;
@@ -1064,10 +1101,10 @@ public class Function extends javax.swing.JFrame {
                 summError += error;
             }
             yData[i] = summError/(learnData.sempls.length-1);
-            System.out.println("Номер эпохи "+i+"\tОшибка "+summError/(learnData.sempls.length-1));
+            //System.out.println("Номер эпохи "+i+"\tОшибка "+summError/(learnData.sempls.length-1));
         }
         String message = "";
-        if (summError > desiredError){
+        if (summError < desiredError){
             message = "Заданное условие ошибки ВЫПОЛНЕНО для заданного кол-ва эпох";
         }else{
             message = "Заданное условие ошибки НЕ ВЫПОЛНЕНО для заданного кол-ва эпох";
@@ -1181,10 +1218,13 @@ public class Function extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel9;
     private javax.swing.JRadioButton jRadioButton1;
     private javax.swing.JRadioButton jRadioButton2;
+    private javax.swing.JRadioButton jRadioButton3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSpinner jSpinner1;
     private javax.swing.JSpinner jSpinner2;
+    private javax.swing.JSpinner jSpinner3;
+    private javax.swing.JSpinner jSpinner4;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTextArea jTextArea1;
     public javax.swing.JTextField jTextField1;
