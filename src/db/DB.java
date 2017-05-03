@@ -30,14 +30,26 @@ public class DB {
     }
 	
     public static void openDB() throws ClassNotFoundException, SQLException
-        {
-            Class.forName("org.sqlite.JDBC");
-            conn = DriverManager.getConnection("jdbc:sqlite:SpeechCommands.s3db");
-            statmt = conn.createStatement();
+    {
+        Class.forName("org.sqlite.JDBC");
+        conn = DriverManager.getConnection("jdbc:sqlite:SpeechCommands.s3db");
+        statmt = conn.createStatement();
             
-            stat = conn.createStatement();
-        }
-        
+        stat = conn.createStatement();
+     }
+      
+    public static void appendSpeaker(int speakerId, String nameSpeaker, int sex) throws ClassNotFoundException, SQLException{
+        //Проверка наличие appendSpeaker == id
+        int id  = getMaxId("speakers");
+        id++;
+        String sqlStr = "select id from speakers where = \'"+nameSpeaker+"\'";
+        resSet = statmt.executeQuery(sqlStr);
+        if (resSet.last())
+            id = resSet.getInt("id");
+        sqlStr = "INSERT INTO speakers (id, name, sex) VALUES("+ id +",\'"+nameSpeaker +"\'"+ sex +")";
+        statmt.execute(sqlStr);
+    }
+    
     public static void addRecord(String nameFile, String nameComm,  float[] value, int speakerId, String nameSpeaker, String fileInfo) throws ClassNotFoundException,SQLException
     {
         String sqlStr = "SELECT * FROM commands";
@@ -101,11 +113,11 @@ public class DB {
         int value;
         //System.out.println(maxComm);
         for (int i = 1; i < maxComm+1; i++){
-            resSet =  statmt.executeQuery("SELECT count(C_ID) From property_commands WHERE C_ID =="+i);
+            resSet =  statmt.executeQuery("SELECT count(C_ID) From property_commands WHERE C_ID = "+i);
             int maxP = resSet.getInt("count(C_ID)");
             value = (int) (1 + Math.random()*maxP);
             int m = getMaxId("s_content");
-            resSet =  statmt.executeQuery("SELECT * From property_commands WHERE C_ID == "+i);
+            resSet =  statmt.executeQuery("SELECT * From property_commands WHERE C_ID = "+i);
             int res;
             int c = 1;
             while(resSet.next()){
