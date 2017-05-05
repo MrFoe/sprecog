@@ -41,12 +41,20 @@ public class DB {
     public static void appendSpeaker(int speakerId, String nameSpeaker, int sex) throws ClassNotFoundException, SQLException{
         //Проверка наличие appendSpeaker == id
         int id  = getMaxId("speakers");
-        id++;
-        String sqlStr = "select id from speakers where = \'"+nameSpeaker+"\'";
-        resSet = statmt.executeQuery(sqlStr);
-        if (resSet.last())
-            id = resSet.getInt("id");
-        sqlStr = "INSERT INTO speakers (id, name, sex) VALUES("+ id +",\'"+nameSpeaker +"\'"+ sex +")";
+        String sqlStr;
+        if (id == 0 ){
+            id++;
+            sqlStr = "INSERT INTO speakers (id, name, sex) VALUES("+ id +",\'"+nameSpeaker +"\',"+ sex +")";
+        }else {
+            sqlStr = "select id from speakers where name = \'"+nameSpeaker+"\'";
+            resSet = statmt.executeQuery(sqlStr);
+            while (resSet.next())
+                if (resSet.getInt("id") == speakerId)
+                    id = resSet.getInt("id");
+            if (id == getMaxId("speakers"))
+                id++;
+            sqlStr = "INSERT INTO speakers (id, name, sex) VALUES("+ id +",\'"+nameSpeaker +"\'"+ sex +")";
+        }
         statmt.execute(sqlStr);
     }
     
@@ -92,57 +100,55 @@ public class DB {
                         + " VALUES ("+(id+i)+','+ id_prop + ',' + value[i]+','+ i + ")");
             }
             statmt.execute("INSERT INTO property_commands ('id','name','c_id','s_id', 'prop_cmd') VALUES ("+id_prop+
-                    ", \'"+nameFile+"\',"+idC+","+speakerId+", \'"+fileInfo+"\',"+")");
+                    ", \'"+nameFile+"\',"+idC+','+speakerId+", \'"+fileInfo+'\''+")");
         }
 	//statmt.execute("INSERT INTO 'commands' ('id','name') VALUES (13,'stroka')");
         //statmt.execute("INSERT INTO commands ('id','name') VALUES ("+id+", '"+str+"')");
     }
 	
-    public static void separateRecord() throws ClassNotFoundException, SQLException{
+    public static void separateRecord(int countRec, boolean flag) throws ClassNotFoundException, SQLException{
         
         //statmt.execute("delete from samples");
         //statmt.execute("delete from s_content");
-        
+        //flag - разбиение для какого алгорима верно - dtw
         int maxId = getMaxId("samples");
         maxId++;
-        statmt.execute("INSERT INTO samples ('id','name_alg','samples_type') VALUES ("+maxId+", \'"+"DTW"+"\',"+1+")");
-        maxId++;
-        statmt.execute("INSERT INTO samples ('id','name_alg','samples_type') VALUES ("+maxId+", \'"+"DTW"+"\',"+2+")");
-        maxId++;
-        int maxComm = getMaxId("commands");
-        int value;
-        //System.out.println(maxComm);
-        for (int i = 1; i < maxComm+1; i++){
-            resSet =  statmt.executeQuery("SELECT count(C_ID) From property_commands WHERE C_ID = "+i);
-            int maxP = resSet.getInt("count(C_ID)");
-            value = (int) (1 + Math.random()*maxP);
-            int m = getMaxId("s_content");
-            resSet =  statmt.executeQuery("SELECT * From property_commands WHERE C_ID = "+i);
-            int res;
-            int c = 1;
-            while(resSet.next()){
-                m++;
-                res = resSet.getInt("ID");
-                
-                //System.out.println(res);
-                if (c == value) 
-                    stat.execute("INSERT INTO s_content ('id','s_id','c_id') VALUES ("+m+", "+2+" ,"+res+")");
-                else
-                    stat.execute("INSERT INTO s_content ('id','s_id','c_id') VALUES ("+m+", "+1+" ,"+res+")");
-                c++;
+        if (flag){
+            statmt.execute("INSERT INTO samples ('id','name_alg','samples_type') VALUES ("+maxId+", \'"+"DTW"+"\',"+1+")");
+            maxId++;
+            statmt.execute("INSERT INTO samples ('id','name_alg','samples_type') VALUES ("+maxId+", \'"+"DTW"+"\',"+2+")");
+            maxId++;
+            //Продолжить разбиение для DTW не для всех записей
+            int maxComm = getMaxId("commands");
+            int value;
+            
+            for (int i = 1; i < maxComm+1; i++){
+                resSet =  statmt.executeQuery("SELECT count(C_ID) From property_commands WHERE C_ID = "+i);
+                int maxP = resSet.getInt("count(C_ID)");
+                value = (int) (1 + Math.random()*maxP);
+                int m = getMaxId("s_content");
+                resSet =  statmt.executeQuery("SELECT * From property_commands WHERE C_ID = "+i);
+                int res;
+                int c = 1;
+                while(resSet.next()){
+                    m++;
+                    res = resSet.getInt("ID");
+                    if (c == value) 
+                        stat.execute("INSERT INTO s_content ('id','s_id','c_id') VALUES ("+m+", "+2+" ,"+res+")");
+                    else
+                        stat.execute("INSERT INTO s_content ('id','s_id','c_id') VALUES ("+m+", "+1+" ,"+res+")");
+                    c++;
+                }
             }
-            //System.out.println();
-            //System.out.println(i);
+        }else{
+        
+            statmt.execute("INSERT INTO samples ('id','name_alg','samples_type') VALUES ("+maxId+", \'"+"Neuron"+"\',"+1+")");
+            maxId++;
+            statmt.execute("INSERT INTO samples ('id','name_alg','samples_type') VALUES ("+maxId+", \'"+"Neuron"+"\',"+2+")");
+            maxId++;
+            statmt.execute("INSERT INTO samples ('id','name_alg','samples_type') VALUES ("+maxId+", \'"+"Neuron"+"\',"+3+")");
+            maxId++; 
         }
-        
-        
-        statmt.execute("INSERT INTO samples ('id','name_alg','samples_type') VALUES ("+maxId+", \'"+"Neuron"+"\',"+1+")");
-        maxId++;
-        statmt.execute("INSERT INTO samples ('id','name_alg','samples_type') VALUES ("+maxId+", \'"+"Neuron"+"\',"+2+")");
-        maxId++;
-        statmt.execute("INSERT INTO samples ('id','name_alg','samples_type') VALUES ("+maxId+", \'"+"Neuron"+"\',"+3+")");
-        maxId++;
-        
     }
     
     public static ExecuteData executeRecord(int smpl) throws ClassNotFoundException, SQLException{
@@ -215,7 +221,7 @@ public class DB {
         statmt.execute(sqlStr);
     }
         
-    private static int getMaxId(String table) throws SQLException, ClassNotFoundException{
+    public static int getMaxId(String table) throws SQLException, ClassNotFoundException{
         int max_id;
         String sqlStr = "SELECT MAX(id) FROM "+table;
         resSet = statmt.executeQuery(sqlStr);
