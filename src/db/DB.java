@@ -106,48 +106,60 @@ public class DB {
         //statmt.execute("INSERT INTO commands ('id','name') VALUES ("+id+", '"+str+"')");
     }
 	
-    public static void separateRecord(int countRec, boolean flag) throws ClassNotFoundException, SQLException{
+    public static void separateRecord() throws ClassNotFoundException, SQLException{
         
         //statmt.execute("delete from samples");
         //statmt.execute("delete from s_content");
         //flag - разбиение для какого алгорима верно - dtw
         int maxId = getMaxId("samples");
-        maxId++;
-        if (flag){
-            statmt.execute("INSERT INTO samples ('id','name_alg','samples_type') VALUES ("+maxId+", \'"+"DTW"+"\',"+1+")");
-            maxId++;
-            statmt.execute("INSERT INTO samples ('id','name_alg','samples_type') VALUES ("+maxId+", \'"+"DTW"+"\',"+2+")");
-            maxId++;
-            //Продолжить разбиение для DTW не для всех записей
-            int maxComm = getMaxId("commands");
-            int value;
-            
-            for (int i = 1; i < maxComm+1; i++){
-                resSet =  statmt.executeQuery("SELECT count(C_ID) From property_commands WHERE C_ID = "+i);
-                int maxP = resSet.getInt("count(C_ID)");
-                value = (int) (1 + Math.random()*maxP);
-                int m = getMaxId("s_content");
-                resSet =  statmt.executeQuery("SELECT * From property_commands WHERE C_ID = "+i);
-                int res;
-                int c = 1;
-                while(resSet.next()){
-                    m++;
-                    res = resSet.getInt("ID");
-                    if (c == value) 
-                        stat.execute("INSERT INTO s_content ('id','s_id','c_id') VALUES ("+m+", "+2+" ,"+res+")");
-                    else
-                        stat.execute("INSERT INTO s_content ('id','s_id','c_id') VALUES ("+m+", "+1+" ,"+res+")");
-                    c++;
-                }
+        int dtwIDl = ++maxId;
+        statmt.execute("INSERT INTO samples ('id','name_alg','samples_type') VALUES ("+maxId+", \'"+"DTW"+"\',"+1+")");
+        int dtwIDt = ++maxId;
+        statmt.execute("INSERT INTO samples ('id','name_alg','samples_type') VALUES ("+maxId+", \'"+"DTW"+"\',"+2+")");
+        int nwIDl = ++maxId;
+        statmt.execute("INSERT INTO samples ('id','name_alg','samples_type') VALUES ("+maxId+", \'"+"Neuron"+"\',"+1+")");
+        int nwIDt = ++maxId;
+        statmt.execute("INSERT INTO samples ('id','name_alg','samples_type') VALUES ("+maxId+", \'"+"Neuron"+"\',"+2+")");
+        int nwIDv = ++maxId;
+        statmt.execute("INSERT INTO samples ('id','name_alg','samples_type') VALUES ("+maxId+", \'"+"Neuron"+"\',"+3+")");
+        //
+        int maxComm = getMaxId("commands");
+        int valueTest;
+        int valueVerific = 1;
+           
+        for (int i = 1; i < maxComm+1; i++){
+            resSet =  statmt.executeQuery("SELECT count(C_ID) From property_commands WHERE C_ID = "+i);
+            int maxP = resSet.getInt("count(C_ID)");
+            valueTest = (int) (1 + Math.random()*maxP);
+            valueVerific = (int) (1 + Math.random()*maxP);
+            while (valueTest == valueVerific){
+                valueVerific = (int) (1 + Math.random()*maxP);
             }
-        }else{
-        
-            statmt.execute("INSERT INTO samples ('id','name_alg','samples_type') VALUES ("+maxId+", \'"+"Neuron"+"\',"+1+")");
-            maxId++;
-            statmt.execute("INSERT INTO samples ('id','name_alg','samples_type') VALUES ("+maxId+", \'"+"Neuron"+"\',"+2+")");
-            maxId++;
-            statmt.execute("INSERT INTO samples ('id','name_alg','samples_type') VALUES ("+maxId+", \'"+"Neuron"+"\',"+3+")");
-            maxId++; 
+            int m = getMaxId("s_content");
+            resSet =  statmt.executeQuery("SELECT * From property_commands WHERE C_ID = "+i);
+            int res;
+            int c = 1;
+            while(resSet.next()){
+                m++;
+                res = resSet.getInt("ID");
+                if (c == valueTest){
+                    // Заносим тестовые команды
+                    stat.execute("INSERT INTO s_content ('id','s_id','c_id') VALUES ("+m+", "+dtwIDt+" ,"+res+")");
+                    m++;
+                    stat.execute("INSERT INTO s_content ('id','s_id','c_id') VALUES ("+m+", "+nwIDt+" ,"+res+")");
+                }
+                else if (c == valueVerific){
+                    //Заносим команды верификации
+                    stat.execute("INSERT INTO s_content ('id','s_id','c_id') VALUES ("+m+", "+nwIDv+" ,"+res+")");
+                }
+                else {
+                    //Заносим обучающие команды
+                    stat.execute("INSERT INTO s_content ('id','s_id','c_id') VALUES ("+m+", "+dtwIDl+" ,"+res+")");
+                    m++;
+                    stat.execute("INSERT INTO s_content ('id','s_id','c_id') VALUES ("+m+", "+nwIDl+" ,"+res+")");
+                }
+                c++;
+            }
         }
     }
     
@@ -193,9 +205,13 @@ public class DB {
         return exData;
     }
 	
-    public static String getInfoSample(){
+    public static String getInfoSample(int samplesId) throws ClassNotFoundException, SQLException{
         //prototype method
-        String infoSample = "";
+        String sqlStr = "select pc.prop_cmd from property_commands pc"
+                + " join s_content sc on sc.c_id = pc.id"
+                + " join samples s on s.id = sc.s_id where s.id = "+ samplesId +" order by pc.id";
+	resSet = statmt.executeQuery(sqlStr);
+        String infoSample = resSet.getString("prop_cmd");
         return infoSample;
     }
     
@@ -214,7 +230,14 @@ public class DB {
         sqlStr = "delete from speakers";
         statmt.execute(sqlStr);
     }
-	
+    
+    public static void deleteSeparation() throws ClassNotFoundException, SQLException{
+        String sqlStr = "delete from samples";
+        statmt.execute(sqlStr);
+        sqlStr = "delete from s_content";
+        statmt.execute(sqlStr);
+    }
+    
     public static void editCommand(String strFrom,String strTo) throws ClassNotFoundException,SQLException
     {
         String sqlStr = "UPDATE 'commands' SET name = '"+strTo+"' WHERE name ='"+strFrom+"'"; 
@@ -228,7 +251,7 @@ public class DB {
         max_id = resSet.getInt("MAX(ID)");
         return max_id;
     }
-    
+
     public static int maxLengthMfcc() throws ClassNotFoundException,SQLException{
         int maxValue;
         String sqlStr = "select count(m.id), m.id_prop from mfcc m\n" +
@@ -266,7 +289,7 @@ public class DB {
         int minValue;
         String sqlStr = "select count(m.id), m.id_prop from mfcc m\n" +
                 "join property_commands pc on m.id_prop = pc.id\n" +
-               "group by m.id_prop order by 1";
+                "group by m.id_prop order by 1";
         resSet = statmt.executeQuery(sqlStr);
         minValue = resSet.getInt("count(m.id)");
         return minValue;
@@ -280,7 +303,8 @@ public class DB {
         cComm = resSet.getInt("count(id)");
         return cComm;
     }
-	//Закрытие Базы данны
+    
+    //Закрытие Базы данны
     public static void closeDB() throws ClassNotFoundException,SQLException
     {
         conn.close();

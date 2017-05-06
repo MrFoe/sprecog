@@ -151,7 +151,15 @@ public class Function extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         jLabel2.setText("Количество команд "+commands.length);
 
-        jLabel27.setText("Количество записей ");
+        int countRec = 0;
+        try{
+            db.openDB();
+            countRec = db.getMaxId("property_commands");
+            db.closeDB();
+        }catch(SQLException | ClassNotFoundException exp){
+            Logger.getLogger(WorkDB.class.getName()).log(Level.SEVERE, null, exp);
+        }
+        jLabel27.setText("Количество записей "+countRec);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -220,7 +228,7 @@ public class Function extends javax.swing.JFrame {
                     .addComponent(jScrollPane1)
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addComponent(jButton2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 208, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 274, Short.MAX_VALUE)
                         .addComponent(jButton3)
                         .addGap(122, 122, 122)
                         .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -230,7 +238,7 @@ public class Function extends javax.swing.JFrame {
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 425, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 461, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton3)
@@ -356,7 +364,7 @@ public class Function extends javax.swing.JFrame {
         );
 
         jPanel8.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Формат числовой характеристи (MFCC)", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 14))); // NOI18N
-        jPanel8.setPreferredSize(new java.awt.Dimension(377, 200));
+        jPanel8.setPreferredSize(new java.awt.Dimension(325, 200));
 
         jLabel10.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel10.setText("Размер перекрытия фреймов");
@@ -484,10 +492,10 @@ public class Function extends javax.swing.JFrame {
         jPanel11.setLayout(jPanel11Layout);
         jPanel11Layout.setHorizontalGroup(
             jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel11Layout.createSequentialGroup()
-                .addGap(135, 135, 135)
-                .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel11Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(119, 119, 119))
         );
         jPanel11Layout.setVerticalGroup(
             jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -529,7 +537,7 @@ public class Function extends javax.swing.JFrame {
         );
 
         jPanel9.setBorder(javax.swing.BorderFactory.createTitledBorder("Параметры обучение нейронной сети"));
-        jPanel9.setPreferredSize(new java.awt.Dimension(230, 302));
+        jPanel9.setPreferredSize(new java.awt.Dimension(325, 302));
 
         jLabel1.setText("Скорость обучения");
 
@@ -600,15 +608,15 @@ public class Function extends javax.swing.JFrame {
         jPanel9.setLayout(jPanel9Layout);
         jPanel9Layout.setHorizontalGroup(
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel9Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel9Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel9Layout.createSequentialGroup()
+                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel9Layout.createSequentialGroup()
                         .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel1)
-                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 272, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 272, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(16, 16, 16)
                         .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jTextField13, javax.swing.GroupLayout.Alignment.TRAILING)
@@ -616,20 +624,20 @@ public class Function extends javax.swing.JFrame {
                             .addComponent(jTextField8)
                             .addGroup(jPanel9Layout.createSequentialGroup()
                                 .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE))))
-                    .addGroup(jPanel9Layout.createSequentialGroup()
+                                .addGap(0, 8, Short.MAX_VALUE))))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel9Layout.createSequentialGroup()
                         .addComponent(jLabel12)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jTextField14, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jTextField14, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel9Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jPanel12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(8, 8, 8)))
                 .addGap(36, 36, 36))
-            .addGroup(jPanel9Layout.createSequentialGroup()
-                .addGap(115, 115, 115)
-                .addComponent(jButton4)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel9Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jPanel12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(64, 64, 64))
+                .addComponent(jButton4)
+                .addGap(104, 104, 104))
         );
         jPanel9Layout.setVerticalGroup(
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -653,9 +661,9 @@ public class Function extends javax.swing.JFrame {
                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTextField14, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel12))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(12, 12, 12)
                 .addComponent(jPanel12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton4)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -729,15 +737,15 @@ public class Function extends javax.swing.JFrame {
                     .addComponent(jPanel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, 375, Short.MAX_VALUE))
-                .addContainerGap(55, Short.MAX_VALUE))
+                    .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
+                    .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addContainerGap(71, Short.MAX_VALUE))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -745,13 +753,16 @@ public class Function extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 1, Short.MAX_VALUE))
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(17, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, 352, Short.MAX_VALUE)))
+                .addContainerGap())
         );
+
+        jPanel8.getAccessibleContext().setAccessibleDescription("");
 
         jTabbedPane1.addTab("Настройка", jPanel5);
 
@@ -772,31 +783,29 @@ public class Function extends javax.swing.JFrame {
         jPanel6Layout.setHorizontalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel6Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
                         .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(99, 99, 99))
-                    .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 871, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(82, 82, 82))))
+                        .addGap(1207, 1207, 1207))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
+                        .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 968, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(1180, 1180, 1180))))
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel6Layout.createSequentialGroup()
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addGap(44, 44, 44)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 565, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(94, 94, 94)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 623, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton1)
-                .addGap(212, 212, 212))
+                .addGap(254, 254, 254))
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addGap(48, 48, 48)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jTabbedPane1.getAccessibleContext().setAccessibleName("jTabbedPane1");
@@ -805,13 +814,13 @@ public class Function extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, 1131, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, 1207, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, 721, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, 688, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
@@ -862,6 +871,7 @@ public class Function extends javax.swing.JFrame {
         long startTime = System.currentTimeMillis();
         try{
             db.openDB();
+            //Нужно выбирать не по порядковому номеру в таблице в по значению выборки DTW, NW 1-5 группа выборки
             testData = db.executeRecord(2);
             learnData = db.executeRecord(1);
             db.closeDB();
@@ -870,7 +880,7 @@ public class Function extends javax.swing.JFrame {
             Logger.getLogger(WorkDB.class.getName()).log(Level.SEVERE, null, ex);
         } 
         long spentTime = System.currentTimeMillis() - startTime;
-        jTextArea1.setText(jTextArea1.getText()+"Время загрузки команд из БД в память "+spentTime+ "\n");
+        jTextArea1.setText(jTextArea1.getText()+"\nВремя загрузки команд из БД в память "+spentTime+ "\n");
         //расчет min DTW расстояния
         startTime = System.currentTimeMillis();
         float error = 0;
@@ -933,9 +943,12 @@ public class Function extends javax.swing.JFrame {
         
         int maxCoef = 0;
         long startTime = System.currentTimeMillis();
+        String infoSmpl = "";
         try{
             db.openDB();
+            //Нужно выбирать не по порядковому номеру в таблице в по значению выборки DTW, NW 1-5 группа выборки
             maxCoef = db.maxLengthMfcc();
+            infoSmpl =  db.getInfoSample(1);
             testData = db.executeRecord(2);
             db.closeDB();
             
@@ -943,7 +956,19 @@ public class Function extends javax.swing.JFrame {
             Logger.getLogger(WorkDB.class.getName()).log(Level.SEVERE, null, ex);
         }
         long spentTime = System.currentTimeMillis() - startTime;
-        jTextArea1.setText(jTextArea1.getText()+"Время загрузки команд из БД в память "+spentTime+ "\n");
+        jTextArea1.setText(jTextArea1.getText()+"\nВремя загрузки команд из БД в память "+spentTime+ "\n");
+        //Выбор НС
+        /*String currPath  = System.getProperty("user.dir");
+        javax.swing.JFileChooser fileCh = new javax.swing.JFileChooser(currPath); 
+        fileCh.setMultiSelectionEnabled(true);
+        int ret = fileCh.showDialog(null, "Открыть файл"); 
+        String fileName = jTextField14.getText()+" ";
+        fileName += infoSmpl.replace('.', ' ');
+        if (ret == fileCh.APPROVE_OPTION) {
+            fileName = fileCh.getName();
+        }
+        System.out.println(fileName);*/
+        
         bpw = (BackpropNetwork) bpw.loadFromFile(jTextField14.getText());
         int[] myArray = new int[testData.sempls.length];
         jTextArea1.setText(jTextArea1.getText()+"Результат распознования с помощью НС\n");
@@ -970,14 +995,13 @@ public class Function extends javax.swing.JFrame {
                     //jTextArea1.setText(jTextArea1.getText()+out[i]+"    ");
                     if ((out[i] < upBorder) && (out[i] > downBorder)){
                         error += 1;
-                        String nameComm = db.getCommand(k);
+                        //String nameComm = db.getCommand(k+1);
                         
-                        jTextArea1.setText(jTextArea1.getText()+"Команда определена не верно "+(k)+"  Имя команды "+nameComm+"\n");
+                        jTextArea1.setText(jTextArea1.getText()+"Команда определена не верно "+(k+1)+"  Имя команды "+"nameComm"+"\n");
 
                         break;
                     }
                 }
-                //jTextArea1.setText(jTextArea1.getText()+"\n");
             }
             db.closeDB();
         } catch (ClassNotFoundException | SQLException ex) {
@@ -1002,10 +1026,11 @@ public class Function extends javax.swing.JFrame {
             db.openDB();
             maxCoef = db.maxLengthMfcc();
             countComm = db.countCommands();
+            //Нужно выбирать не по порядковому номеру в таблице в по значению выборки DTW, NW 1-5 группа выборки
             learnData = db.executeRecord(1); //Download learn sample from DB
             testData = db.executeRecord(2); //Download test sample from DB
-            verfData = db.executeRecord(3); //Download verification sample from DB
-            infoSmpl =  db.getInfoSample();
+            verfData = db.executeRecord(5); //Download verification sample from DB
+            infoSmpl =  db.getInfoSample(1); //Получаем свойство файла
             //System.out.println(db.maxLengthMfcc());
             db.closeDB();
             
@@ -1016,30 +1041,27 @@ public class Function extends javax.swing.JFrame {
         System.out.println("Время загрузки команд из БД в память "+spentTime);
         
         // Задание слоев нейронной сети
-        int layersSize = (int) jSpinner1.getValue();
+        int layersSize = (int) jSpinner2.getValue();
+        if ((layersSize > 3) || (layersSize < 0))
+            JOptionPane.showMessageDialog(null, "Выбранное кол-во слоев должно быть меньше 4 и больше 0", "Информация", JOptionPane.INFORMATION_MESSAGE);
         SigmoidLayer[] sl = new SigmoidLayer[layersSize];
+        boolean activFunc = false;
         if (layersSize == 1){
-            sl[0] = new SigmoidLayer(maxCoef, countComm, false);
+            sl[0] = new SigmoidLayer(maxCoef, countComm, activFunc);
         }
         else if (layersSize == 2){
-            sl[0] = new SigmoidLayer(maxCoef, maxCoef/2, false);
-            sl[1] = new SigmoidLayer(maxCoef/2, countComm, false);
+            sl[0] = new SigmoidLayer(maxCoef, maxCoef/2, activFunc);
+            sl[1] = new SigmoidLayer(maxCoef/2, countComm, activFunc);
         }else {
-            sl[0] = new SigmoidLayer(maxCoef, maxCoef, false);
-            int currInpt = maxCoef;
-            for (int i = 1; i < sl.length-1; i++){
-                sl[i] = new SigmoidLayer (currInpt, currInpt/2, false);
-                if (currInpt/2 > countComm)
-                    currInpt /= 2;
-            }
-            sl[sl.length-1] = new SigmoidLayer(maxCoef, countComm, false);
+            sl[0] = new SigmoidLayer(maxCoef, maxCoef, activFunc);
+            //Костыль, заебался я чет править этот код(
+            sl[1] = new SigmoidLayer(maxCoef, maxCoef/2, activFunc);
+            sl[2] = new SigmoidLayer(maxCoef/2, countComm, activFunc);
         }
         //int minC = getMin();
         
         //Создание нейронной сети
         bpw = new BackpropNetwork(sl);
-        //float startH = ;
-        //float endH = ;
         if (jRadioButton3.isSelected())
             bpw.randomize(-0.5f, 0.5f);
         float rate = Float.parseFloat(jTextField12.getText()) ;
@@ -1061,6 +1083,7 @@ public class Function extends javax.swing.JFrame {
         xData = new double[epoch];
         float desiredError = Float.parseFloat(jTextField8.getText());
         float summError = 0;
+        //Обучение НС
         for (int i = 0; i<epoch; i++){
             xData[i] = i;
             summError = 0; // суммарная ошибка обучения на iой эпохи
@@ -1105,8 +1128,23 @@ public class Function extends javax.swing.JFrame {
                 output = bpw.computeOutput(input);
                 summError += error;
             }
+            //Верификация, нужно еще дополнить массив knowoutput в зависимости от id команды и постом посчитать ошибки с выхода, и график для верификации и обучения
+            /*float[] input = new float[maxCoef];
+            float[] knowOutput = new float[countComm];
+            for (int ind = 0; ind <verfData.sempls.length)
+                for (int l = 0; l < maxCoef; l++){
+                    if (l < verfData.sempls[ind].length){
+                        input[l] = learnData.sempls[ind][l];
+                    }else {
+                        input[l] = 0;
+                    }
+                
+            }
+            
+            float[] output = new float[countComm];
+            output = bpw.computeOutput(input);*/
             yData[i] = summError/(learnData.sempls.length-1);
-            //System.out.println("Номер эпохи "+i+"\tОшибка "+summError/(learnData.sempls.length-1));
+            System.out.println("Номер эпохи "+i+"\tОшибка "+summError/(learnData.sempls.length-1));
         }
         String message = "";
         if (summError < desiredError){
@@ -1117,7 +1155,9 @@ public class Function extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(null, message, "Информация", JOptionPane.INFORMATION_MESSAGE);
         //Сохранение нейронной сети
         String name = jTextField14.getText();
-        name += infoSmpl;
+        infoSmpl = infoSmpl.replace('.', ' ');
+        System.out.println(infoSmpl);
+        //name += " " + infoSmpl;
         if (new File(name).exists()){
             int result = JOptionPane.showConfirmDialog(null, "Вы действительно хотите перезаписать обученную НС", 
                                               "Предупреждение",
