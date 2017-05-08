@@ -11,6 +11,6 @@ public class HammingWindow extends WindowFunction {
 	}
 
 	protected float value(int length, int index) {
-		return 1;//0.54f - 0.46f * (float) Math.cos(TWO_PI * index / (length - 1));
+		return 0.54f - 0.46f * (float) Math.cos(TWO_PI * index / (length - 1));
 	}
 }

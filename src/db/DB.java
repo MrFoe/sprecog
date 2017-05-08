@@ -39,7 +39,7 @@ public class DB {
      }
       
     public static void appendSpeaker(int speakerId, String nameSpeaker, int sex) throws ClassNotFoundException, SQLException{
-        //Проверка наличие appendSpeaker == id
+        //Проверка наличие appendSpeaker == id ОШИБКА В ЭТОМ МЕТОДЕ
         int id  = getMaxId("speakers");
         String sqlStr;
         if (id == 0 ){
@@ -53,7 +53,7 @@ public class DB {
                     id = resSet.getInt("id");
             if (id == getMaxId("speakers"))
                 id++;
-            sqlStr = "INSERT INTO speakers (id, name, sex) VALUES("+ id +",\'"+nameSpeaker +"\'"+ sex +")";
+            sqlStr = "INSERT INTO speakers (id, name, sex) VALUES("+ id +",\'"+nameSpeaker +"\',"+ sex +")";
         }
         statmt.execute(sqlStr);
     }
@@ -231,6 +231,12 @@ public class DB {
         statmt.execute(sqlStr);
     }
     
+    public static void ap123() throws SQLException, ClassNotFoundException {
+        String sqlStr= "INSERT INTO speakers ('id', 'name', 'sex') VALUES (2, 'Ярушко', 1)";
+        
+        statmt.execute(sqlStr);
+    }
+    
     public static void deleteSeparation() throws ClassNotFoundException, SQLException{
         String sqlStr = "delete from samples";
         statmt.execute(sqlStr);
@@ -305,8 +311,7 @@ public class DB {
     }
     
     //Закрытие Базы данны
-    public static void closeDB() throws ClassNotFoundException,SQLException
-    {
+    public static void closeDB() throws ClassNotFoundException,SQLException{
         conn.close();
         if (statmt != null){
             statmt.close();  
@@ -318,6 +323,6 @@ public class DB {
             resSet.close();
         if (resSt != null)
             resSt.close();
-	}
+    }
 }
 
