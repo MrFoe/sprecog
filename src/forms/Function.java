@@ -11,7 +11,6 @@ import core.util.ExecuteData;
 import db.DB;
 import java.io.File;
 import javax.swing.JFrame;
-import org.knowm.xchart.QuickChart;
 import org.knowm.xchart.SwingWrapper;
 import org.knowm.xchart.XYChart;
 import java.sql.SQLException;
@@ -19,7 +18,6 @@ import java.util.Stack;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-import javax.swing.WindowConstants;
 import nn.BackpropNetwork;
 import nn.SigmoidLayer;
 import org.knowm.xchart.XYChartBuilder;
@@ -1078,143 +1076,151 @@ public class Function extends javax.swing.JFrame {
         
         // Задание слоев нейронной сети
         int layersSize = (int) jSpinner2.getValue();
-        if ((layersSize > 3) || (layersSize < 0))
+        if ((layersSize > 4) || (layersSize < 0))
             JOptionPane.showMessageDialog(null, "Выбранное кол-во слоев должно быть меньше 4 и больше 0", "Информация", JOptionPane.INFORMATION_MESSAGE);
-        SigmoidLayer[] sl = new SigmoidLayer[layersSize];
-        boolean activFunc = false;
-        if (layersSize == 1){
-            sl[0] = new SigmoidLayer(maxCoef, countComm, activFunc);
-        }
-        else if (layersSize == 2){
-            sl[0] = new SigmoidLayer(maxCoef, maxCoef/2, activFunc);
-            sl[1] = new SigmoidLayer(maxCoef/2, countComm, activFunc);
-        }else {
-            sl[0] = new SigmoidLayer(maxCoef, maxCoef, activFunc);
+        else{
+            SigmoidLayer[] sl = new SigmoidLayer[layersSize];
+
+            boolean activFunc = false;
             //Костыль, заебался я чет править этот код(
-            sl[1] = new SigmoidLayer(maxCoef, maxCoef/2, activFunc);
-            sl[2] = new SigmoidLayer(maxCoef/2, countComm, activFunc);
-        }
-        //int minC = getMin();
-        
-        //Создание нейронной сети
-        bpw = new BackpropNetwork(sl);
-        if (jRadioButton3.isSelected())
-            bpw.randomize(-0.5f, 0.5f);
-        float rate = Float.parseFloat(jTextField12.getText()) ;
-        float momentum = Float.parseFloat(jTextField13.getText()) ;
-        float error = 0;
-        float[][] seek = new float[countComm][countComm];
-        //Кодирование команды в формат 100000, 01000000  и т.д. 
-        for (int i = 0; i < seek.length; i++)
-            seek[i][i]=1;
-        /*{{1,0,0,0},
-            {0, 1, 0, 0},
-            {0, 0, 1, 0},
-            {0, 0, 0, 1}};*/
-        //int[] value; // Произвольные числа для выбора   
-        //float outValue;//value = (int) (1 + Math.random()*learnData.sempls.length);
-        
-        //int[] g = generated.;
-        int epoch = Integer.parseInt(jTextField7.getText());
-        errData = new double[epoch];
-        xData = new double[epoch];
-        verData = new double [epoch];
-        float desiredError = Float.parseFloat(jTextField8.getText());
-        float summError = 0;
-        //Обучение НС
-        for (int i = 0; i<epoch; i++){
-            xData[i] = i;
-            summError = 0; // суммарная ошибка обучения на iой эпохи
-            int[] myArray = new int[learnData.sempls.length];
-            int p = 0;
-            int value = 0;
-            //random distribution number from lear sample
-            while (p < learnData.sempls.length){
-                    value = (int) (Math.random()*(learnData.sempls.length));
-                    boolean flag = true;
-                    for (int u = 0; u < p; u++){
-                        if (myArray[u] == value){
-                            flag = false;
-                            break;
-                        }    
-                    }
-                    if (flag){
-                       myArray[p] = value;        
-                       p++; 
-                    }  
+            if (layersSize == 1){
+                sl[0] = new SigmoidLayer(maxCoef, countComm, activFunc);
             }
-            // process learn NW
-            for (int k = 0; k < learnData.sempls.length; k++){
-                float[] input = new float[maxCoef];
-                
-                for (int l = 0; l < maxCoef; l++){
-                    int ind = myArray[k];
-                    if (l < learnData.sempls[ind].length){
-                        input[l] = learnData.sempls[ind][l];
-                    }else {
-                        input[l] = 0;
+            else if (layersSize == 2){
+                sl[0] = new SigmoidLayer(maxCoef, maxCoef/2, activFunc);
+                sl[1] = new SigmoidLayer(maxCoef/2, countComm, activFunc);
+            }else if (layersSize == 3){
+                sl[0] = new SigmoidLayer(maxCoef, maxCoef, activFunc);
+                sl[1] = new SigmoidLayer(maxCoef, maxCoef/2, activFunc);
+                sl[2] = new SigmoidLayer(maxCoef/2, countComm, activFunc);
+            }else {
+                sl[0] = new SigmoidLayer(maxCoef, maxCoef, activFunc);
+                sl[1] = new SigmoidLayer(maxCoef, maxCoef/2, activFunc);
+                sl[2] = new SigmoidLayer(maxCoef/2, maxCoef/4, activFunc);
+                sl[3] = new SigmoidLayer(maxCoef/4, countComm, activFunc);
+            }
+            //int minC = getMin();
+
+            //Создание нейронной сети
+            bpw = new BackpropNetwork(sl);
+            if (jRadioButton3.isSelected())
+                bpw.randomize(-0.5f, 0.5f);
+            float rate = Float.parseFloat(jTextField12.getText()) ;
+            float momentum = Float.parseFloat(jTextField13.getText()) ;
+            float error = 0;
+            float[][] seek = new float[countComm][countComm];
+            //Кодирование команды в формат 100000, 01000000  и т.д. 
+            for (int i = 0; i < seek.length; i++)
+                seek[i][i]=1;
+            /*{{1,0,0,0},
+                {0, 1, 0, 0},
+                {0, 0, 1, 0},
+                {0, 0, 0, 1}};*/
+            //int[] value; // Произвольные числа для выбора   
+            //float outValue;//value = (int) (1 + Math.random()*learnData.sempls.length);
+
+            //int[] g = generated.;
+            int epoch = Integer.parseInt(jTextField7.getText());
+            errData = new double[epoch];
+            xData = new double[epoch];
+            verData = new double [epoch];
+            float desiredError = Float.parseFloat(jTextField8.getText());
+            float summError = 0;
+            //Обучение НС
+            for (int i = 0; i<epoch; i++){
+                xData[i] = i;
+                summError = 0; // суммарная ошибка обучения на iой эпохи
+                int[] myArray = new int[learnData.sempls.length];
+                int p = 0;
+                int value = 0;
+                //random distribution number from lear sample
+                while (p < learnData.sempls.length){
+                        value = (int) (Math.random()*(learnData.sempls.length));
+                        boolean flag = true;
+                        for (int u = 0; u < p; u++){
+                            if (myArray[u] == value){
+                                flag = false;
+                                break;
+                            }    
+                        }
+                        if (flag){
+                           myArray[p] = value;        
+                           p++; 
+                        }  
+                }
+                // process learn NW
+                for (int k = 0; k < learnData.sempls.length; k++){
+                    float[] input = new float[maxCoef];
+
+                    for (int l = 0; l < maxCoef; l++){
+                        int ind = myArray[k];
+                        if (l < learnData.sempls[ind].length){
+                            input[l] = learnData.sempls[ind][l];
+                        }else {
+                            input[l] = 0;
+                        }
                     }
+
+                    float[] goal = new float[seek.length];
+                    for(int l = 0; l < goal.length; l++){
+                        int ind = myArray[k];
+                        goal[l] = seek[learnData.commandsIds[ind]-1][l];
+                    }
+                    error = bpw.learnPattern(input, goal, rate, momentum);
+                    float[] output = new float[countComm];
+                    output = bpw.computeOutput(input);
+                    summError += error;
+                }
+                //Верификация, нужно еще дополнить массив knowoutput в зависимости от id команды и постом посчитать ошибки с выхода, и график для верификации и обучения
+                /*float[] input = new float[maxCoef];
+                float[] knowOutput = new float[countComm];
+                for (int ind = 0; ind <verfData.sempls.length)
+                    for (int l = 0; l < maxCoef; l++){
+                        if (l < verfData.sempls[ind].length){
+                            input[l] = learnData.sempls[ind][l];
+                        }else {
+                            input[l] = 0;
+                        }
+
                 }
 
-                float[] goal = new float[seek.length];
-                for(int l = 0; l < goal.length; l++){
-                    int ind = myArray[k];
-                    goal[l] = seek[learnData.commandsIds[ind]-1][l];
-                }
-                error = bpw.learnPattern(input, goal, rate, momentum);
                 float[] output = new float[countComm];
-                output = bpw.computeOutput(input);
-                summError += error;
+                output = bpw.computeOutput(input);*/
+                errData[i] = summError/(learnData.sempls.length-1);
+                summError /= (learnData.sempls.length-1);
+                System.out.println("Номер эпохи "+i+"\tОшибка "+summError);
             }
-            //Верификация, нужно еще дополнить массив knowoutput в зависимости от id команды и постом посчитать ошибки с выхода, и график для верификации и обучения
-            /*float[] input = new float[maxCoef];
-            float[] knowOutput = new float[countComm];
-            for (int ind = 0; ind <verfData.sempls.length)
-                for (int l = 0; l < maxCoef; l++){
-                    if (l < verfData.sempls[ind].length){
-                        input[l] = learnData.sempls[ind][l];
-                    }else {
-                        input[l] = 0;
-                    }
-                
+            String message = "";
+            if (summError < desiredError){
+                message = "Заданное условие ошибки ВЫПОЛНЕНО для заданного кол-ва эпох";
+            }else{
+                message = "Заданное условие ошибки НЕ ВЫПОЛНЕНО для заданного кол-ва эпох";
             }
-            
-            float[] output = new float[countComm];
-            output = bpw.computeOutput(input);*/
-            errData[i] = summError/(learnData.sempls.length-1);
-            summError /= (learnData.sempls.length-1);
-            System.out.println("Номер эпохи "+i+"\tОшибка "+summError);
-        }
-        String message = "";
-        if (summError < desiredError){
-            message = "Заданное условие ошибки ВЫПОЛНЕНО для заданного кол-ва эпох";
-        }else{
-            message = "Заданное условие ошибки НЕ ВЫПОЛНЕНО для заданного кол-ва эпох";
-        }
-        JOptionPane.showMessageDialog(null, message, "Информация", JOptionPane.INFORMATION_MESSAGE);
-        //Сохранение нейронной сети
-        String name = jTextField14.getText();
-        infoSmpl = infoSmpl.replace('.', ' ');
-        System.out.println(infoSmpl);
-        //name += " " + infoSmpl;
-        if (new File(name).exists()){
-            int result = JOptionPane.showConfirmDialog(null, "Вы действительно хотите перезаписать обученную НС", 
-                                              "Предупреждение",
-                                              JOptionPane.WARNING_MESSAGE);
-            if (result == JOptionPane.YES_OPTION){
+            JOptionPane.showMessageDialog(null, message, "Информация", JOptionPane.INFORMATION_MESSAGE);
+            //Сохранение нейронной сети
+            String name = jTextField14.getText();
+            infoSmpl = infoSmpl.replace('.', ' ');
+            System.out.println(infoSmpl);
+            //name += " " + infoSmpl;
+            if (new File(name).exists()){
+                int result = JOptionPane.showConfirmDialog(null, "Вы действительно хотите перезаписать обученную НС", 
+                                                  "Предупреждение",
+                                                  JOptionPane.WARNING_MESSAGE);
+                if (result == JOptionPane.YES_OPTION){
+                    bpw.saveToFile(name);
+                }else {
+                    name = name+"1";
+                    bpw.saveToFile(name);
+                }   
+            }else
                 bpw.saveToFile(name);
-            }else {
-                name = name+"1";
-                bpw.saveToFile(name);
-            }   
-        }else
-            bpw.saveToFile(name);
-        fileNameNN = name;
-        chart = new XYChartBuilder().width(800).height(600).theme(ChartTheme.Matlab).title("График обучения НС")
-                .xAxisTitle("Эпохи").yAxisTitle("Ошибка обчуения").build();
-        chart.addSeries("Ошибка верификации", xData, verData);
-        chart.addSeries("Ошибка обучения", xData, errData);
-        JFrame sw = new SwingWrapper(chart).displayChart();
+            fileNameNN = name;
+            chart = new XYChartBuilder().width(800).height(600).theme(ChartTheme.Matlab).title("График обучения НС")
+                    .xAxisTitle("Эпохи").yAxisTitle("Ошибка обчуения").build();
+            chart.addSeries("Ошибка верификации", xData, verData);
+            chart.addSeries("Ошибка обучения", xData, errData);
+            JFrame sw = new SwingWrapper(chart).displayChart();
+        }
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
