@@ -1025,11 +1025,17 @@ public class Function extends javax.swing.JFrame {
                         input[l] = 0;
                     }
                 }
-                float[] out = bpw.computeOutput(input); 
+                float[] out = bpw.computeOutput(input);
+                int id = testData.commandsIds[k]; 
+                boolean flag = false;
                 for (int i = 0; i < out.length; i++){
-                    //System.out.print(out[i]+" ");
-                    //jTextArea1.setText(jTextArea1.getText()+out[i]+"    ");
-                    if ((out[i] < upBorder) && (out[i] > downBorder)){
+                    if ((out[i] > downBorder) && (i+1 != id)){
+                        flag = true;
+                    }
+                    else if ((i+1 == id) && (out[i] < downBorder) &&(out[i] > upBorder)){
+                        flag = true; 
+                    }
+                    if (flag){
                         error += 1;
                         String nameComm = db.getCommand(k+1);
                         jTextArea1.setText(jTextArea1.getText()+"Команда определена не верно "+(k+1)+"  Имя команды "+nameComm+"\n");

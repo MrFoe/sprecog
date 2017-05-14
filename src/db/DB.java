@@ -11,7 +11,6 @@ package db;
  */
 import core.util.ExecuteData;
 import java.sql.*;
-import java.util.Arrays;
 
 public class DB {
 
@@ -259,12 +258,14 @@ public class DB {
     }
 
     public static int maxLengthMfcc() throws ClassNotFoundException,SQLException{
-        int maxValue;
+        int maxValue = 0;
         String sqlStr = "select count(m.id), m.id_prop from mfcc m\n" +
                     "join property_commands pc on m.id_prop = pc.id\n" +
                     "group by m.id_prop order by 1 desc";
         resSet = statmt.executeQuery(sqlStr);
-        maxValue = resSet.getInt("count(m.id)");
+        if (resSet.next())
+            maxValue = resSet.getInt("count(m.id)");
+        System.out.println(maxValue);
         return maxValue;
     }
     
