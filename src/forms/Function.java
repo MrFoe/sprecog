@@ -34,7 +34,9 @@ public class Function extends javax.swing.JFrame {
     public Function() throws ClassNotFoundException, SQLException{
         loadCommands();
         editCmd = new EditCmd();
+        editCmd.setLocationRelativeTo(null);
         workdb = new WorkDB();
+        workdb.setLocationRelativeTo(null);
         db = new DB();
         initComponents();
     }
@@ -96,6 +98,8 @@ public class Function extends javax.swing.JFrame {
         jPanel7 = new javax.swing.JPanel();
         jRadioButton1 = new javax.swing.JRadioButton();
         jRadioButton2 = new javax.swing.JRadioButton();
+        jLabel30 = new javax.swing.JLabel();
+        jSpinner5 = new javax.swing.JSpinner();
         jPanel9 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -228,7 +232,7 @@ public class Function extends javax.swing.JFrame {
                     .addComponent(jScrollPane1)
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addComponent(jButton2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 192, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 252, Short.MAX_VALUE)
                         .addComponent(jButton3)
                         .addGap(122, 122, 122)
                         .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -238,7 +242,7 @@ public class Function extends javax.swing.JFrame {
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 434, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 521, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton3)
@@ -385,7 +389,7 @@ public class Function extends javax.swing.JFrame {
         jLabel16.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
         jLabel16.setText("Количество фильров");
 
-        jTextField9.setText("22");
+        jTextField9.setText("13");
 
         jLabel17.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
         jLabel17.setText("Начальная частота");
@@ -409,7 +413,7 @@ public class Function extends javax.swing.JFrame {
         jLabel25.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
         jLabel25.setText("Гц");
 
-        jTextField1.setText("20");
+        jTextField1.setText("13");
         jTextField1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField1ActionPerformed(evt);
@@ -449,7 +453,7 @@ public class Function extends javax.swing.JFrame {
                         .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel23)
                             .addComponent(jLabel22))))
-                .addContainerGap(75, Short.MAX_VALUE))
+                .addContainerGap(19, Short.MAX_VALUE))
         );
         jPanel8Layout.setVerticalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -502,7 +506,7 @@ public class Function extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel11Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(119, 119, 119))
+                .addGap(132, 132, 132))
         );
         jPanel11Layout.setVerticalGroup(
             jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -522,6 +526,8 @@ public class Function extends javax.swing.JFrame {
         jRadioButton2.setSelected(true);
         jRadioButton2.setText("Нейросетевой алгоритм");
 
+        jLabel30.setText("Номер выборки для распознования");
+
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
         jPanel7Layout.setHorizontalGroup(
@@ -529,18 +535,25 @@ public class Function extends javax.swing.JFrame {
             .addGroup(jPanel7Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jRadioButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jRadioButton2)
-                    .addComponent(jRadioButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel7Layout.createSequentialGroup()
+                        .addComponent(jLabel30, javax.swing.GroupLayout.PREFERRED_SIZE, 265, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(94, 94, 94)
+                        .addComponent(jSpinner5, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(88, Short.MAX_VALUE))
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel7Layout.createSequentialGroup()
-                .addContainerGap()
                 .addComponent(jRadioButton1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jRadioButton2)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel30, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jSpinner5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
         );
 
         jPanel9.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Параметры обучение нейронной сети", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Times New Roman", 0, 14))); // NOI18N
@@ -634,7 +647,7 @@ public class Function extends javax.swing.JFrame {
                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel9Layout.createSequentialGroup()
                         .addComponent(jButton4)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 19, Short.MAX_VALUE)
                         .addComponent(jButton6))
                     .addGroup(jPanel9Layout.createSequentialGroup()
                         .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -644,7 +657,7 @@ public class Function extends javax.swing.JFrame {
                             .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(16, 16, 16)
                         .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextField13, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 54, Short.MAX_VALUE)
+                            .addComponent(jTextField13, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jTextField12)
                             .addComponent(jTextField8)
                             .addComponent(jTextField7)))
@@ -656,7 +669,7 @@ public class Function extends javax.swing.JFrame {
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(jPanel12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(8, 8, 8)))
-                .addGap(36, 36, 36))
+                .addGap(18, 18, 18))
         );
         jPanel9Layout.setVerticalGroup(
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -728,7 +741,7 @@ public class Function extends javax.swing.JFrame {
                                 .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jSpinner4, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jSpinner3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE))))))
-                .addContainerGap(28, Short.MAX_VALUE))
+                .addContainerGap(42, Short.MAX_VALUE))
         );
         jPanel10Layout.setVerticalGroup(
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -765,7 +778,7 @@ public class Function extends javax.swing.JFrame {
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
                     .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE))
-                .addContainerGap(20, Short.MAX_VALUE))
+                .addContainerGap(25, Short.MAX_VALUE))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -777,14 +790,14 @@ public class Function extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, 296, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(32, Short.MAX_VALUE))
+                        .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(31, Short.MAX_VALUE))
         );
 
         jPanel8.getAccessibleContext().setAccessibleDescription("");
@@ -810,24 +823,29 @@ public class Function extends javax.swing.JFrame {
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTabbedPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 861, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(1287, 1287, 1287))
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 980, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(1168, 1168, 1168))
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 574, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButton1)))
-                .addGap(242, 242, 242))
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(242, 242, 242))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
+                        .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 681, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton1)
+                        .addGap(147, 147, 147))))
         );
 
         jTabbedPane1.getAccessibleContext().setAccessibleName("jTabbedPane1");
@@ -836,11 +854,11 @@ public class Function extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, 1110, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, 1206, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, 643, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, 735, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
@@ -866,6 +884,9 @@ public class Function extends javax.swing.JFrame {
         jLabel27.setText("Количество записей "+countRec);
         try{
             db.openDB();
+            int count = db.getMaxId("Samples");
+            count /=5;
+            jSpinner5.setValue(count);
             jSpinner3.setValue(db.maxLengthMfcc());
             jSpinner4.setValue(db.getMaxId("commands"));
             db.closeDB();
@@ -1070,7 +1091,7 @@ public class Function extends javax.swing.JFrame {
             learnData = db.executeRecord(1); //Download learn sample from DB
             testData = db.executeRecord(2); //Download test sample from DB
             verfData = db.executeRecord(5); //Download verification sample from DB
-            infoSmpl =  db.getInfoSample(1); //Получаем свойство файла
+            //infoSmpl =  db.getInfoSample(1); //Получаем свойство файла
             //System.out.println(db.maxLengthMfcc());
             db.closeDB();
             
@@ -1082,28 +1103,38 @@ public class Function extends javax.swing.JFrame {
         
         // Задание слоев нейронной сети
         int layersSize = (int) jSpinner2.getValue();
-        if ((layersSize > 4) || (layersSize < 0))
+        if ((layersSize > 6) || (layersSize < 0))
             JOptionPane.showMessageDialog(null, "Выбранное кол-во слоев должно быть меньше 4 и больше 0", "Информация", JOptionPane.INFORMATION_MESSAGE);
         else{
             SigmoidLayer[] sl = new SigmoidLayer[layersSize];
 
             boolean activFunc = false;
             //Костыль, заебался я чет править этот код(
-            if (layersSize == 1){
-                sl[0] = new SigmoidLayer(maxCoef, countComm, activFunc);
-            }
-            else if (layersSize == 2){
-                sl[0] = new SigmoidLayer(maxCoef, maxCoef/2, activFunc);
-                sl[1] = new SigmoidLayer(maxCoef/2, countComm, activFunc);
-            }else if (layersSize == 3){
-                sl[0] = new SigmoidLayer(maxCoef, maxCoef, activFunc);
-                sl[1] = new SigmoidLayer(maxCoef, maxCoef/2, activFunc);
-                sl[2] = new SigmoidLayer(maxCoef/2, countComm, activFunc);
-            }else {
-                sl[0] = new SigmoidLayer(maxCoef, maxCoef, activFunc);
-                sl[1] = new SigmoidLayer(maxCoef, maxCoef/2, activFunc);
-                sl[2] = new SigmoidLayer(maxCoef/2, maxCoef/4, activFunc);
-                sl[3] = new SigmoidLayer(maxCoef/4, countComm, activFunc);
+            switch(layersSize){
+                
+                case 2:     sl[0] = new SigmoidLayer(maxCoef, maxCoef/2, activFunc);
+                            sl[1] = new SigmoidLayer(maxCoef/2, countComm, activFunc);
+                            break;
+                            
+                case 3:     sl[0] = new SigmoidLayer(maxCoef, maxCoef, activFunc);
+                            sl[1] = new SigmoidLayer(maxCoef, maxCoef*2, activFunc);
+                            sl[2] = new SigmoidLayer(maxCoef*2, countComm, activFunc);
+                            break;
+                            
+                case 4:     sl[0] = new SigmoidLayer(maxCoef, maxCoef, activFunc);
+                            sl[1] = new SigmoidLayer(maxCoef, maxCoef*2, activFunc);
+                            sl[2] = new SigmoidLayer(maxCoef*2, maxCoef*2, activFunc);
+                            sl[3] = new SigmoidLayer(maxCoef*2, countComm, activFunc);
+                            break;
+                            
+                case 5:     sl[0] = new SigmoidLayer(maxCoef, maxCoef, activFunc);
+                            sl[1] = new SigmoidLayer(maxCoef, (int) (maxCoef*1.5), activFunc);
+                            sl[2] = new SigmoidLayer((int) (maxCoef*1.5), (int)(maxCoef*1.5), activFunc);
+                            sl[3] = new SigmoidLayer((int)(maxCoef*1.5), maxCoef*2, activFunc);
+                            sl[4] = new SigmoidLayer(maxCoef*2, countComm, activFunc);
+                            break;
+                            
+                default:    sl[0] = new SigmoidLayer(maxCoef, countComm, activFunc);
             }
             //int minC = getMin();
 
@@ -1178,20 +1209,30 @@ public class Function extends javax.swing.JFrame {
                     summError += error;
                 }
                 //Верификация, нужно еще дополнить массив knowoutput в зависимости от id команды и постом посчитать ошибки с выхода, и график для верификации и обучения
-                /*float[] input = new float[maxCoef];
+                verData[i]=0;
+                float[] input = new float[maxCoef];
                 float[] knowOutput = new float[countComm];
-                for (int ind = 0; ind <verfData.sempls.length)
+                float err = 0;
+                for (int ind = 0; ind <verfData.sempls.length; ind++){
                     for (int l = 0; l < maxCoef; l++){
                         if (l < verfData.sempls[ind].length){
-                            input[l] = learnData.sempls[ind][l];
+                            input[l] = verfData.sempls[ind][l];
                         }else {
                             input[l] = 0;
                         }
-
+                    }
+                    int id = verfData.commandsIds[ind];
+                    for (int l = 0; l < knowOutput.length; l++)
+                        knowOutput[l] = 0;
+                    knowOutput[id-1] = 1;
+                    float[] output = new float[countComm];
+                    output = bpw.computeOutput(input);
+                    for (int l = 0; l<output.length; l++){
+                        err += Math.abs(output[l] - knowOutput[l]); 
+                    }
+                    
                 }
-
-                float[] output = new float[countComm];
-                output = bpw.computeOutput(input);*/
+                verData[i] = err/(verfData.sempls.length-1);
                 errData[i] = summError/(learnData.sempls.length-1);
                 summError /= (learnData.sempls.length-1);
                 System.out.println("Номер эпохи "+i+"\tОшибка "+summError);
@@ -1236,6 +1277,7 @@ public class Function extends javax.swing.JFrame {
     private void showForm(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_showForm
         loadCommands();
         loadCountProp();
+        int max = 0;
         jList1.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = commands;
             public int getSize() { return strings.length; }
@@ -1268,9 +1310,11 @@ public class Function extends javax.swing.JFrame {
             Logger.getLogger(WorkDB.class.getName()).log(Level.SEVERE, null, exp);
         }
     }
-     public static void main(String args[]) {
+    
+    public static void main(String args[]) {
         try {
             function =  new Function();
+            function.setLocationRelativeTo(null);
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(Function.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
@@ -1323,6 +1367,7 @@ public class Function extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel28;
     private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel30;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
@@ -1351,6 +1396,7 @@ public class Function extends javax.swing.JFrame {
     private javax.swing.JSpinner jSpinner2;
     private javax.swing.JSpinner jSpinner3;
     private javax.swing.JSpinner jSpinner4;
+    private javax.swing.JSpinner jSpinner5;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTextArea jTextArea1;
     public javax.swing.JTextField jTextField1;

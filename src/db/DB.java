@@ -250,10 +250,11 @@ public class DB {
     }
         
     public static int getMaxId(String table) throws SQLException, ClassNotFoundException{
-        int max_id;
+        int max_id = 0;
         String sqlStr = "SELECT MAX(id) FROM "+table;
         resSet = statmt.executeQuery(sqlStr);
-        max_id = resSet.getInt("MAX(ID)");
+        if (resSet.next())
+            max_id = resSet.getInt("MAX(ID)");
         return max_id;
     }
 
@@ -265,7 +266,6 @@ public class DB {
         resSet = statmt.executeQuery(sqlStr);
         if (resSet.next())
             maxValue = resSet.getInt("count(m.id)");
-        System.out.println(maxValue);
         return maxValue;
     }
     
