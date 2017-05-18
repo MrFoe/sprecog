@@ -1083,6 +1083,8 @@ public class Function extends javax.swing.JFrame {
         String infoSmpl = "";
         long startTime = System.currentTimeMillis();
         System.out.println("Начало загрузки команд из БД в память");
+        //Проверка на наличие max выборок
+        int number = (int) jSpinner5.getValue();
         try{
             db.openDB();
             maxCoef = db.maxLengthMfcc();

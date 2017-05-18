@@ -5,8 +5,9 @@
         <group>
             <file>file:/home/semen/Documents/MPEI/UNIR/spgit/sprecog/src/db/DB.java</file>
             <file>file:/home/semen/Documents/MPEI/UNIR/spgit/sprecog/src/forms/WorkDB.java</file>
+            <file>file:/home/semen/Documents/MPEI/UNIR/spgit/sprecog/src/core/util/Resamples.java</file>
             <file>file:/home/semen/Documents/MPEI/UNIR/spgit/sprecog/src/forms/Function.java</file>
-            <file>file:/home/semen/Documents/MPEI/UNIR/spgit/sprecog/src/nn/BackpropNetwork.java</file>
+            <file>file:/home/semen/Documents/MPEI/UNIR/spgit/sprecog/src/core/mfcc/MFCC.java</file>
         </group>
     </open-files>
 </project-private>
