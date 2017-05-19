@@ -11,6 +11,8 @@ package db;
  */
 import core.util.ExecuteData;
 import java.sql.*;
+import java.util.HashMap;
+import java.util.Map;
 
 public class DB {
 
@@ -105,7 +107,7 @@ public class DB {
         //statmt.execute("INSERT INTO commands ('id','name') VALUES ("+id+", '"+str+"')");
     }
 	
-    public static void separateRecord() throws ClassNotFoundException, SQLException{
+    public static void separateRecord(int percent) throws ClassNotFoundException, SQLException{
         
         //statmt.execute("delete from samples");
         //statmt.execute("delete from s_content");
@@ -125,14 +127,21 @@ public class DB {
         int maxComm = getMaxId("commands");
         int valueTest;
         int valueVerific = 1;
-           
+        int TVpercent = (100-percent)/100; // test and verif
+        int cntSmpl = (int)(maxComm*TVpercent);
+        Map<Integer, String> hashmap = new HashMap<>(); // Для хранения номер айди значений для верификации и теста 
+        hashmap.containsKey(conn);
         for (int i = 1; i < maxComm+1; i++){
             resSet =  statmt.executeQuery("SELECT count(C_ID) From property_commands WHERE C_ID = "+i);
             int maxP = resSet.getInt("count(C_ID)");
-            valueTest = (int) (1 + Math.random()*maxP);
-            valueVerific = (int) (1 + Math.random()*maxP);
-            while (valueTest == valueVerific){
+            //
+            for (int j = 0; j < cntSmpl; j++){
+                valueTest = (int) (1 + Math.random()*maxP);
+                hashmap.put(valueTest, "test");
                 valueVerific = (int) (1 + Math.random()*maxP);
+                while (valueTest == valueVerific){
+                    valueVerific = (int) (1 + Math.random()*maxP);
+                }
             }
             int m = getMaxId("s_content");
             resSet =  statmt.executeQuery("SELECT * From property_commands WHERE C_ID = "+i);
@@ -141,13 +150,13 @@ public class DB {
             while(resSet.next()){
                 m++;
                 res = resSet.getInt("ID");
-                if (c == valueTest){
+                if (hashmap.get(c).equals("test")){
                     // Заносим тестовые команды
                     stat.execute("INSERT INTO s_content ('id','s_id','c_id') VALUES ("+m+", "+dtwIDt+" ,"+res+")");
                     m++;
                     stat.execute("INSERT INTO s_content ('id','s_id','c_id') VALUES ("+m+", "+nwIDt+" ,"+res+")");
                 }
-                else if (c == valueVerific){
+                else if (hashmap.get(c).equals("verif")){
                     //Заносим команды верификации
                     stat.execute("INSERT INTO s_content ('id','s_id','c_id') VALUES ("+m+", "+nwIDv+" ,"+res+")");
                 }
@@ -159,6 +168,7 @@ public class DB {
                 }
                 c++;
             }
+            hashmap.clear();
         }
     }
     
