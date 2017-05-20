@@ -125,23 +125,31 @@ public class DB {
         statmt.execute("INSERT INTO samples ('id','name_alg','samples_type') VALUES ("+maxId+", \'"+"Neuron"+"\',"+3+")");
         //
         int maxComm = getMaxId("commands");
-        int valueTest;
-        int valueVerific = 1;
-        int TVpercent = (100-percent)/100; // test and verif
-        int cntSmpl = (int)(maxComm*TVpercent);
+        float p = percent;
+        float TVpercent = (1-p/100)/2; // test and verif
+        TVpercent += 0.00001;
         Map<Integer, String> hashmap = new HashMap<>(); // Для хранения номер айди значений для верификации и теста 
-        hashmap.containsKey(conn);
         for (int i = 1; i < maxComm+1; i++){
             resSet =  statmt.executeQuery("SELECT count(C_ID) From property_commands WHERE C_ID = "+i);
             int maxP = resSet.getInt("count(C_ID)");
-            //
+            int cntSmpl = (int)(maxP*TVpercent);
+            //распределение номеров для тестовой выборки и верификации
             for (int j = 0; j < cntSmpl; j++){
+                int valueTest = 0;
+                int valueVerific = 0;
                 valueTest = (int) (1 + Math.random()*maxP);
-                hashmap.put(valueTest, "test");
+                if (hashmap.isEmpty())
+                    hashmap.put(valueTest, "test");
+                else{
+                    while (hashmap.containsKey(valueTest))
+                        valueTest = (int) (1 + Math.random()*maxP);
+                    hashmap.put(valueTest, "test");
+                }
                 valueVerific = (int) (1 + Math.random()*maxP);
-                while (valueTest == valueVerific){
+                while (hashmap.containsKey(valueVerific)){
                     valueVerific = (int) (1 + Math.random()*maxP);
                 }
+                hashmap.put(valueVerific, "verif");
             }
             int m = getMaxId("s_content");
             resSet =  statmt.executeQuery("SELECT * From property_commands WHERE C_ID = "+i);
@@ -150,15 +158,18 @@ public class DB {
             while(resSet.next()){
                 m++;
                 res = resSet.getInt("ID");
-                if (hashmap.get(c).equals("test")){
-                    // Заносим тестовые команды
-                    stat.execute("INSERT INTO s_content ('id','s_id','c_id') VALUES ("+m+", "+dtwIDt+" ,"+res+")");
-                    m++;
-                    stat.execute("INSERT INTO s_content ('id','s_id','c_id') VALUES ("+m+", "+nwIDt+" ,"+res+")");
-                }
-                else if (hashmap.get(c).equals("verif")){
-                    //Заносим команды верификации
-                    stat.execute("INSERT INTO s_content ('id','s_id','c_id') VALUES ("+m+", "+nwIDv+" ,"+res+")");
+                if (hashmap.containsKey(c)){
+                    String str = hashmap.get(c);
+                    if (str.compareTo("test") == 0 ){
+                        // Заносим тестовые команды
+                        stat.execute("INSERT INTO s_content ('id','s_id','c_id') VALUES ("+m+", "+dtwIDt+" ,"+res+")");
+                        m++;
+                        stat.execute("INSERT INTO s_content ('id','s_id','c_id') VALUES ("+m+", "+nwIDt+" ,"+res+")");
+                    }
+                    else if (str.compareTo("verif") == 0){
+                        //Заносим команды верификации
+                        stat.execute("INSERT INTO s_content ('id','s_id','c_id') VALUES ("+m+", "+nwIDv+" ,"+res+")");
+                    }
                 }
                 else {
                     //Заносим обучающие команды

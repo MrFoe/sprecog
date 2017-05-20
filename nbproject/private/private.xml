@@ -3,17 +3,9 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-<<<<<<< HEAD
-            <file>file:/home/semen/Documents/MPEI/UNIR/spgit/sprecog/src/db/DB.java</file>
-            <file>file:/home/semen/Documents/MPEI/UNIR/spgit/sprecog/src/forms/WorkDB.java</file>
-            <file>file:/home/semen/Documents/MPEI/UNIR/spgit/sprecog/src/core/util/Resamples.java</file>
-            <file>file:/home/semen/Documents/MPEI/UNIR/spgit/sprecog/src/forms/Function.java</file>
-            <file>file:/home/semen/Documents/MPEI/UNIR/spgit/sprecog/src/core/mfcc/MFCC.java</file>
-=======
             <file>file:/D:/Files/MPEI/UNIR/gitproject/sprecog/src/forms/Function.java</file>
             <file>file:/D:/Files/MPEI/UNIR/gitproject/sprecog/src/db/DB.java</file>
             <file>file:/D:/Files/MPEI/UNIR/gitproject/sprecog/src/forms/WorkDB.java</file>
->>>>>>> desktop
         </group>
     </open-files>
 </project-private>
