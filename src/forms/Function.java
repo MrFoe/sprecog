@@ -504,10 +504,11 @@ public class Function extends javax.swing.JFrame {
                     .addComponent(jTextField11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel25))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField17, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel33)
-                    .addComponent(jLabel32))
+                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel32)
+                    .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jTextField17, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel33)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -971,7 +972,7 @@ public class Function extends javax.swing.JFrame {
             Logger.getLogger(WorkDB.class.getName()).log(Level.SEVERE, null, ex);
         } 
         long spentTime = System.currentTimeMillis() - startTime;
-        jTextArea1.setText(jTextArea1.getText()+"\nВремя загрузки команд из БД в память "+spentTime+ "\n");
+        jTextArea1.setText(jTextArea1.getText()+"\nВремя загрузки записей из БД в память "+spentTime+ "\n");
         //расчет min DTW расстояния
         startTime = System.currentTimeMillis();
         float error = 0;
@@ -1025,7 +1026,7 @@ public class Function extends javax.swing.JFrame {
         spentTime = System.currentTimeMillis() - startTime;
         jTextArea1.setText(jTextArea1.getText()+"\nВремя работы DTW и расчета ошибки "+spentTime+"\n");
         error = error/testData.sempls.length;
-        jTextArea1.setText(jTextArea1.getText()+"Ошибка определения команд "+error+"\n");
+        jTextArea1.setText(jTextArea1.getText()+"Ошибка распознавания "+error+"\n");
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
@@ -1047,7 +1048,7 @@ public class Function extends javax.swing.JFrame {
                 maxCoef = db.maxLengthMfcc();
                 infoSmpl =  db.getInfoSample(1); //Получение информации о записи под номером 1, не помню зачем))))
                 testData = db.executeRecord((numSmpl*5)-3);
-                System.out.println(numSmpl*5-3);
+                //System.out.println(numSmpl*5-3);
             }
             db.closeDB();
             
@@ -1055,7 +1056,7 @@ public class Function extends javax.swing.JFrame {
             Logger.getLogger(WorkDB.class.getName()).log(Level.SEVERE, null, ex);
         }
         long spentTime = System.currentTimeMillis() - startTime;
-        jTextArea1.setText(jTextArea1.getText()+"\nВремя загрузки команд из БД в память "+spentTime+ "\n");
+        jTextArea1.setText(jTextArea1.getText()+"\nВремя загрузки записей из БД в память "+spentTime+ "\n");
         //Выбор НС
         /*String currPath  = System.getProperty("user.dir");
         javax.swing.JFileChooser fileCh = new javax.swing.JFileChooser(currPath); 
@@ -1101,7 +1102,7 @@ public class Function extends javax.swing.JFrame {
                     if (flag){
                         error += 1;
                         String nameComm = db.getCommand(k+1);
-                        jTextArea1.setText(jTextArea1.getText()+"Команда определена не верно "+(k+1)+"  Имя команды "+nameComm+"\n");
+                        jTextArea1.setText(jTextArea1.getText()+"Запись определена не верно "+(k+1)+"  Имя записи "+nameComm+"\n");
                         break;
                     }
                 }
@@ -1113,7 +1114,7 @@ public class Function extends javax.swing.JFrame {
         spentTime = System.currentTimeMillis() - startTime;
         jTextArea1.setText(jTextArea1.getText()+"\nВремя работы НС и расчета ошибки "+spentTime+"\n");
         error = error/testData.sempls.length;
-        jTextArea1.setText(jTextArea1.getText()+"Ошибка определения команд "+error+"\n");
+        jTextArea1.setText(jTextArea1.getText()+"Ошибка распознавания "+error+"\n");
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
@@ -1124,7 +1125,7 @@ public class Function extends javax.swing.JFrame {
         int maxCoef = 0, countComm = 0;
         String infoSmpl = "";
         long startTime = System.currentTimeMillis();
-        System.out.println("Начало загрузки команд из БД в память");
+        System.out.println("Начало загрузки записей из БД в память");
         //Проверка на наличие max выборок
         int nmbrSmpl = (int) jSpinner5.getValue();
         try{
@@ -1139,8 +1140,8 @@ public class Function extends javax.swing.JFrame {
                 //Нужно выбирать не по порядковому номеру в таблице в по значению выборки DTW, NW 1-5 группа выборки
                 learnData = db.executeRecord(nmbrSmpl*5-4); //Download learn sample from DB
                 verfData = db.executeRecord(nmbrSmpl*5); //Download verification sample from DB
-                System.out.println(nmbrSmpl*5-4);
-                System.out.println(nmbrSmpl*5);
+                //System.out.println(nmbrSmpl*5-4);
+                //System.out.println(nmbrSmpl*5);
                 //infoSmpl =  db.getInfoSample(1); //Получаем свойство файла
                 //System.out.println(db.maxLengthMfcc());
             }
@@ -1150,7 +1151,7 @@ public class Function extends javax.swing.JFrame {
             Logger.getLogger(WorkDB.class.getName()).log(Level.SEVERE, null, ex);
         } 
         long spentTime = System.currentTimeMillis() - startTime;
-        System.out.println("Время загрузки команд из БД в память "+spentTime);
+        System.out.println("Время загрузки записей из БД в память "+spentTime);
         
         // Задание слоев нейронной сети
         int layersSize = (int) jSpinner2.getValue();
@@ -1296,7 +1297,7 @@ public class Function extends javax.swing.JFrame {
             //Сохранение нейронной сети
             String name = jTextField14.getText();
             infoSmpl = infoSmpl.replace('.', ' ');
-            System.out.println(infoSmpl);
+            //System.out.println(infoSmpl);
             //name += " " + infoSmpl;
             if (new File(name).exists()){
                 int result = JOptionPane.showConfirmDialog(null, "Вы действительно хотите перезаписать обученную НС", 

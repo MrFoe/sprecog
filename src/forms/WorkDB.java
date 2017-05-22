@@ -341,7 +341,7 @@ public class WorkDB extends javax.swing.JFrame {
                     //Реализация для фонем??????????????????
                     if (jRadioButton3.isSelected()){
                         longSignal = FdataFromImport.length;
-                        freamLngth = (float) (longSignal*0.2);    
+                        freamLngth = (float) (longSignal*0.4);    
                     }
                     Resamples rs = new Resamples(FdataFromImport, crossing, longSignal, freamLngth, false);
                     resData = rs.count(); 
