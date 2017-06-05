@@ -95,11 +95,6 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="102" alignment="1" attributes="0">
-                  <EmptySpace max="32767" attributes="0"/>
-                  <Component id="jButton1" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="75" max="-2" attributes="0"/>
-              </Group>
               <Group type="102" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
@@ -130,6 +125,11 @@
                           <EmptySpace max="32767" attributes="0"/>
                       </Group>
                   </Group>
+              </Group>
+              <Group type="102" alignment="1" attributes="0">
+                  <EmptySpace max="32767" attributes="0"/>
+                  <Component id="jButton1" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="96" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -306,7 +306,7 @@
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Times New Roman" size="12" style="0"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="&#x420;&#x430;&#x437;&#x431;&#x438;&#x435;&#x43d;&#x438;&#x435; &#x43d;&#x430; &#x432;&#x44b;&#x431;&#x43e;&#x440;&#x43a;&#x438;"/>
+            <Property name="text" type="java.lang.String" value="&#x420;&#x430;&#x437;&#x431;&#x438;&#x435;&#x43d;&#x438;&#x435; &#x432;&#x44b;&#x431;&#x43e;&#x440;&#x43a;&#x438;"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton2ActionPerformed"/>
@@ -380,7 +380,7 @@
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Times New Roman" size="12" style="0"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="&#x41e;&#x442;&#x447;&#x438;&#x441;&#x442;&#x438;&#x442;&#x44c; &#x442;&#x430;&#x431;&#x43b;&#x438;&#x446;&#x44b; &#x440;&#x430;&#x437;&#x431;&#x438;&#x435;&#x43d;&#x438;&#x435;"/>
+            <Property name="text" type="java.lang.String" value="&#x41e;&#x447;&#x438;&#x441;&#x442;&#x438;&#x442;&#x44c; &#x442;&#x430;&#x431;&#x43b;&#x438;&#x446;&#x44b; &#x440;&#x430;&#x437;&#x431;&#x438;&#x435;&#x43d;&#x438;&#x435;"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton4ActionPerformed"/>
@@ -391,7 +391,7 @@
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Times New Roman" size="12" style="0"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="&#x41e;&#x442;&#x447;&#x438;&#x441;&#x442;&#x438;&#x442;&#x44c; &#x432;&#x441;&#x44e; &#x411;&#x414;"/>
+            <Property name="text" type="java.lang.String" value="&#x41e;&#x447;&#x438;&#x441;&#x442;&#x438;&#x442;&#x44c; &#x432;&#x441;&#x44e; &#x411;&#x414;"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jToggleButton1ActionPerformed"/>

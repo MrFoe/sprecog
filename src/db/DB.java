@@ -128,11 +128,14 @@ public class DB {
         float p = percent;
         float TVpercent = (1-p/100)/2; // test and verif
         TVpercent += 0.00001;
+        System.out.println(TVpercent);
+        System.out.println((int)TVpercent*5);
         Map<Integer, String> hashmap = new HashMap<>(); // Для хранения номер айди значений для верификации и теста 
         for (int i = 1; i < maxComm+1; i++){
             resSet =  statmt.executeQuery("SELECT count(C_ID) From property_commands WHERE C_ID = "+i);
             int maxP = resSet.getInt("count(C_ID)");
             int cntSmpl = (int)(maxP*TVpercent);
+            System.out.println(cntSmpl);
             //распределение номеров для тестовой выборки и верификации
             for (int j = 0; j < cntSmpl; j++){
                 int valueTest = 0;
