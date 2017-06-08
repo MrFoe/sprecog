@@ -22,7 +22,10 @@ public class Resamples {
     public Resamples(float[] data,float overlap,float fullTime, float freamTime, boolean cnt){
 	this.data = data.clone();
 	this.overlap = overlap;
-        this.fullTime = fullTime;
+        if (!cnt)
+            this.fullTime = fullTime*100;
+        else
+            this.fullTime = fullTime;
         this.freamTime = freamTime;
         this.cnt = cnt;
     }
@@ -31,10 +34,11 @@ public class Resamples {
         int n = 0;
         int m = 0;
         if (!cnt){
-            n = (int)(fullTime/(freamTime*(overlap/100))-1);  //Кол-во фреймов
+            n = (int)(fullTime/(freamTime*(overlap/100))-1);  //Кол-во фреймов для слов
             m = (int)(data.length/fullTime * freamTime); 
+            //System.out.println(this.fullTime);
         }else {
-            n = (int)(this.constFream + this.constFream*(overlap/100));  //Кол-во фреймов
+            n = (int)(this.constFream + this.constFream*(overlap/100));  //Кол-во фреймов для фонем
             m = (int)(data.length/n);
         }
         int post = (int)(m*(overlap/100));

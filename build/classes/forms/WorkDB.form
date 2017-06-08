@@ -239,6 +239,9 @@
           <Properties>
             <Property name="text" type="java.lang.String" value=" &#x417;&#x430;&#x433;&#x440;&#x443;&#x437;&#x43a;&#x430; &#x444;&#x43e;&#x43d;&#x435;&#x43c;"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jRadioButton3ActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>

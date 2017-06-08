@@ -112,6 +112,11 @@ public class WorkDB extends javax.swing.JFrame {
         jLabel2.setText("Пол диктора");
 
         jRadioButton3.setText(" Загрузка фонем");
+        jRadioButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButton3ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -338,12 +343,12 @@ public class WorkDB extends javax.swing.JFrame {
                     float crossing  = Float.parseFloat(function.jTextField5.getText());
                     float freamLngth  = Float.parseFloat(function.jTextField6.getText());
                     float[][] resData = new float[0][0];
-                    //Реализация для фонем??????????????????
+                    //Реализация для фонем, вроде работает
                     if (jRadioButton3.isSelected()){
                         longSignal = FdataFromImport.length;
                         freamLngth = (float) (longSignal*0.4);    
                     }
-                    Resamples rs = new Resamples(FdataFromImport, crossing, longSignal, freamLngth, false);
+                    Resamples rs = new Resamples(FdataFromImport, crossing, longSignal, freamLngth, jRadioButton3.isSelected());
                     resData = rs.count(); 
                     float sampleRate = wf.getAudioFormat().getSampleRate();//wf.getAudioFormat().get; // для конкретной моей выборки
                     int amountOfCepstrumCoef = Integer.parseInt(function.jTextField1.getText());
@@ -464,6 +469,10 @@ public class WorkDB extends javax.swing.JFrame {
         cntSmp /= 5;
         jLabel6.setText(Integer.toString(cntSmp));
     }//GEN-LAST:event_formComponentShown
+
+    private void jRadioButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton3ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jRadioButton3ActionPerformed
 
     /**
      * @param args the command line arguments
